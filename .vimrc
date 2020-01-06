@@ -1,15 +1,23 @@
+"
+"   _    ________  _______  ______
+"  | |  / /  _/  |/  / __ \/ ____/
+"  | | / // // /|_/ / /_/ / /     
+" _| |/ // // /  / / _, _/ /___   
+"(_)___/___/_/  /_/_/ |_|\____/   
+"                                 
+"
+"
+"
 " shotcut configuration file
 source ~/.vim/shot_cut_source/md_snippits.vim
-source ~/.vim/shot_cut_source/cpp_short_cut.vim
-source ~/.vim/shot_cut_source/golang_short_cut.vim
-source ~/.vim/shot_cut_source/python_short_cut.vim
+source ~/.vim/shot_cut_source/coding_short_cut.vim
 
 set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
 set termencoding=utf-8
 set encoding=utf-8
 
-colorscheme badwolf
+colorscheme gruvbox
 set number
 set cursorline
 set showcmd
@@ -25,6 +33,8 @@ set softtabstop=4
 set shiftwidth=4    
 set expandtab 
 
+let mapleader=" "
+
 noremap h i
 noremap H I
 noremap k j
@@ -34,30 +44,69 @@ noremap I 5k
 noremap j h
 noremap J 5h
 noremap L 5l
-
-"Â§çÂà∂Á≤òË¥¥Âà∞Á≥ªÁªü
 noremap Y "+y
 noremap P "+p
 
-"=== split the screen===
+"************************
+"*Part: split the screen
+"*Desc:  
+"************************
 map sl :set splitright<CR>:vsplit<CR>
 map sj :set nosplitright<CR>:vsplit<CR>
 map si :set nosplitbelow<CR>:split<CR>
 map sk :set splitbelow<CR>:split<CR>
-
+"=== split screen movement===
+noremap <LEADER>w <C-w>w
+noremap <LEADER>i <C-w>k
+noremap <LEADER>k <C-w>j
+noremap <LEADER>j <C-w>h
+noremap <LEADER>l <C-w>l
 "=== split operation===
 map s<up> :res-5<CR>
 map s<down> :res+5<CR>
 map s<left> :vertical resize+5<CR>
 map s<right> :vertical resize-5<CR>
 
-" ===quick operation===
+
+"************************
+"*Part: quick operation
+"*Desc:  
+"************************
 map S :w<CR>
 map s <nop>
 map Q :q<CR>
 map R :source $MYVIMRC<CR>
 
-" quick run code
+
+"************************
+"*Part: something Useful
+"*Desc:  
+"************************
+" open a terminal window
+noremap <LEADER>/ :terminal<CR>
+" exit terminal mode
+tnoremap <LEADER><Esc> <C-\><C-n>
+" to next <++>
+map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+
+" undo the changes made previously
+if has("vms")
+  set nobackup
+else
+  if has('persistent_undo')
+    set undofile
+  endif
+endif
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"************************
+"*Part: quick run code
+"*Desc:  
+"************************
 map <F5> :call RunCode()<CR>
 func! RunCode()
     exec "w" 
@@ -67,6 +116,8 @@ func! RunCode()
         exec 'terminal time ./%<'
     elseif &filetype == 'python'
         exec 'terminal time python %'
+    elseif &filetype == 'java'
+        exec 'terminal time java %'
     elseif &filetype == 'sh'
         :!time bash %
 	elseif &filetype == 'markdown'
@@ -77,8 +128,7 @@ func! RunCode()
 		exec 'MarkdownPreview'
     endif                                                                              
 endfunc
-" === NeoVIM ‰∏çÊîØÊåÅ:!,Âè™ÊîØÊåÅ:terminal ‰∏∫‰∫ÜÊñπ‰æøÊâÄ‰ª•ÂÖàÁºñËØëËøêË°åÂàÜÂºÄ
-"   Âõ†‰∏∫‰ºöÂíåstdioÂÜ≤Á™Å,Â•ΩÂÉè
+
 map <F6> :call CompileGcc()<CR>
 func! CompileGcc()
     exec "w" 
@@ -99,16 +149,17 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 "************************
 "*Part: markdown preview setting
@@ -126,15 +177,36 @@ let g:mkdp_browser = ''
 "************************
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
-call plug#begin('~/.vim/plugged')
+
+"************************
+"*Part: coc
+"*Desc:  
+"************************
+" fix the most annoying bug that coc has
+silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+let g:coc_global_extensions = ['coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 'coc-yank', 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss', 'coc-stylelint']
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+"nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <leader>rn <Plug>(coc-rename)
+
 
 
 "************************
 "*Part: Plug
 "*Desc:  
 "************************
-Plug 'vim-airline/vim-airline'
+call plug#begin('~/.vim/plugged')
 
+
+"************************
+"*Part: dress up
+"*Desc:  
+"************************
+Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
 
 "************************
 "*Part: markdown preview
@@ -144,14 +216,17 @@ Plug 'iamcco/mathjax-support-for-mkdp'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'dhruvasagar/vim-table-mode'
 
-
 "************************
-"*Part: fuzzy finder
+"*Part: something useful
 "*Desc:  
 "************************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/vim-easy-align'
 
-" snips
+"************************
+"*Part: snips
+"*Desc:  
+"************************
 " Track the engine.
 Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -162,6 +237,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-e>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 
+
 " Use release branch
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Or latest tag
@@ -171,6 +247,41 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
+
+
+"************************
+"*Part: coding
+"*Desc:  
+"************************
+" Tex
+Plug 'lervag/vimtex'
+
+" CSharp
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'ctrlpvim/ctrlp.vim' , { 'for': ['cs', 'vim-plug'] } " omnisharp-vim dependency
+
+" HTML, CSS, JavaScript, PHP, JSON, etc.
+Plug 'elzr/vim-json'
+Plug 'hail2u/vim-css3-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'spf13/PIV', { 'for' :['php', 'vim-plug'] }
+Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'yuezk/vim-js', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+Plug 'jaxbot/browserlink.vim'
+
+" Go
+Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
+
+" Python
+" Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
+Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
+Plug 'tweekmonster/braceless.vim'
+
+
+
+
 
 call plug#end()
 
