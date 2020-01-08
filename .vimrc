@@ -90,13 +90,13 @@ tnoremap <LEADER><Esc> <C-\><C-n>
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 " undo the changes made previously
-if has("vms")
-  set nobackup
-else
-  if has('persistent_undo')
-    set undofile
-  endif
-endif
+" if has("vms")
+"   set nobackup
+" else
+"   if has('persistent_undo')
+"     set undofile
+"   endif
+" endif
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
