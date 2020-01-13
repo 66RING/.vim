@@ -89,14 +89,23 @@ tnoremap <LEADER><Esc> <C-\><C-n>
 " to next <++>
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
-" undo the changes made previously
-" if has("vms")
-"   set nobackup
-" else
-"   if has('persistent_undo')
-"     set undofile
-"   endif
-" endif
+"undo the changes made previously
+"if has("vms")
+"  set nobackup
+"else
+"  if has('persistent_undo')
+"    set undofile
+"  endif
+"endif
+
+"************************
+"*Part: last position
+"*Desc: Uncomment the following to have Vim jump to the last position when       
+"************************
+if has("autocmd")                                                          
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
+endif
+
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -189,7 +198,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-"nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>rn <Plug>(coc-rename)
 
 
@@ -279,6 +288,8 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
 
+" emoji in vim
+Plug 'junegunn/vim-emoji'
 
 
 
