@@ -6,4 +6,5 @@ init.vim
 autoload
 coc-settings.json
 sessions
+plugged
 
