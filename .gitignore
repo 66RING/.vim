@@ -2,3 +2,8 @@
 st
 *.orig
 *.rej
+init.vim
+autoload
+coc-settings.json
+sessions
+

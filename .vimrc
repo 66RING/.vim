@@ -8,9 +8,26 @@
 "
 "
 "
+
+" ===
+" === Auto load for first time uses
+" ===
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
 " shotcut configuration file
 source ~/.vim/shot_cut_source/md_snippits.vim
 source ~/.vim/shot_cut_source/coding_short_cut.vim
+
+
+map <Up> <Nop>
+map <Down> <Nop>
+map <Right> <Nop>
+map <Left> <Nop>
 
 set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
@@ -89,22 +106,21 @@ tnoremap <LEADER><Esc> <C-\><C-n>
 " to next <++>
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
-"undo the changes made previously
-"if has("vms")
-"  set nobackup
-"else
-"  if has('persistent_undo')
-"    set undofile
-"  endif
-"endif
+silent !mkdir -p ~/.config/nvim/tmp/backup
+silent !mkdir -p ~/.config/nvim/tmp/undo
+silent !mkdir -p ~/.config/nvim/tmp/sessions
+set backupdir=~/.config/nvim/tmp/backup,.
+set directory=~/.config/nvim/tmp/backup,.
+if has('persistent_undo')
+	set undofile
+	set undodir=~/.config/nvim/tmp/undo,.
+endif
 
 "************************
 "*Part: last position
 "*Desc: Uncomment the following to have Vim jump to the last position when       
 "************************
-if has("autocmd")                                                          
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
-endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -214,8 +230,15 @@ call plug#begin('~/.vim/plugged')
 "*Part: dress up
 "*Desc:  
 "************************
+set termguicolors
 Plug 'mhinz/vim-startify'
-Plug 'vim-airline/vim-airline'
+Plug 'liuchengxu/eleline.vim'
+Plug 'bling/vim-bufferline'
+"Plug 'vim-airline/vim-airline'
+
+" Genreal Highlighter
+Plug 'jaxbot/semantic-highlight.vim'
+Plug 'chrisbra/Colorizer'
 
 "************************
 "*Part: markdown preview
@@ -296,11 +319,13 @@ Plug 'junegunn/vim-emoji'
 
 call plug#end()
 
+" ===================== Start of Plugin Settings =====================
+
+"************************
+"*Part: eleline.vim
+"*Desc:  
+"************************
+set laststatus=2
 
 
 
-
-map <Up> <Nop>
-map <Down> <Nop>
-map <Right> <Nop>
-map <Left> <Nop>
