@@ -36,6 +36,7 @@ set encoding=utf-8
 
 colorscheme gruvbox
 set number
+set relativenumber
 set cursorline
 set showcmd
 set wildmenu
@@ -65,7 +66,7 @@ noremap Y "+y
 noremap P "+p
 
 "************************
-"*Part: split the screen
+"*Part: split screen
 "*Desc:  
 "************************
 map sl :set splitright<CR>:vsplit<CR>
@@ -86,13 +87,22 @@ map s<right> :vertical resize-5<CR>
 
 
 "************************
-"*Part: quick operation
+"*Part: file operation
 "*Desc:  
 "************************
 map S :w<CR>
 map s <nop>
 map Q :q<CR>
 map R :source $MYVIMRC<CR>
+
+"" Alias replace all to S
+"nnoremap S :%s//g<Left><Left>
+
+" Basic file system commands
+nnoremap <C-t> :!touch<Space>
+nnoremap <C-e> :!crf<Space>
+nnoremap <C-d> :!mkdir<Space>
+nnoremap <C-m> :!mv<Space>%<Space>
 
 
 "************************
@@ -115,6 +125,9 @@ if has('persistent_undo')
 	set undofile
 	set undodir=~/.config/nvim/tmp/undo,.
 endif
+
+" Call figlet
+noremap tx :r !figlet
 
 "************************
 "*Part: last position
@@ -186,14 +199,6 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
-"************************
-"*Part: markdown preview setting
-"*Desc:  
-"************************
-"let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_browser = ''
 
 
 "************************
@@ -209,7 +214,13 @@ autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeIm
 "************************
 " fix the most annoying bug that coc has
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-let g:coc_global_extensions = ['coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 'coc-yank', 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss', 'coc-stylelint']
+let g:coc_global_extensions = [
+    \ 'coc-python', 'coc-java', 'coc-html',
+    \ 'coc-json', 'coc-css', 'coc-yank',
+    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore',
+    \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
+    \ 'coc-stylelint'
+    \ ]
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -217,6 +228,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>rn <Plug>(coc-rename)
 
+" Remap for format selected region
+xmap <C-s>  <Plug>(coc-format-selected)
+nmap <C-s>  <Plug>(coc-format-selected)
 
 
 "************************
@@ -240,13 +254,51 @@ Plug 'bling/vim-bufferline'
 Plug 'jaxbot/semantic-highlight.vim'
 Plug 'chrisbra/Colorizer'
 
+
 "************************
-"*Part: markdown preview
+"*Part: markdown
 "*Desc:  
 "************************
-Plug 'iamcco/mathjax-support-for-mkdp'
-Plug 'iamcco/markdown-preview.vim'
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
+
+" markdown preview setting
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = ''
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {}
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+
+
+""************************
+""*Part: Nerd Tree plugins
+""*Desc:  
+""************************
+"Plug 'preservim/nerdtree'
+"Plug 'tsony-tsonev/nerdtree-git-plugin'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'scrooloose/nerdcommenter'
+
 
 "************************
 "*Part: something useful
@@ -254,28 +306,23 @@ Plug 'dhruvasagar/vim-table-mode'
 "************************
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-surround'
 
+    
 "************************
 "*Part: snips
 "*Desc:  
 "************************
 " Track the engine.
 Plug 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-e>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 
 
-" Use release branch
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Or latest tag
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-" Or build from source code by use yarn: https://yarnpkg.com
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -300,7 +347,9 @@ Plug 'pangloss/vim-javascript', { 'for': ['vim-plug', 'php', 'html', 'javascript
 Plug 'yuezk/vim-js', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
 Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
-Plug 'jaxbot/browserlink.vim'
+"Plug 'jaxbot/browserlink.vim'
+Plug 'alvan/vim-closetag'
+Plug 'AndrewRadev/tagalong.vim'
 
 " Go
 Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
@@ -315,8 +364,6 @@ Plug 'tweekmonster/braceless.vim'
 Plug 'junegunn/vim-emoji'
 
 
-
-
 call plug#end()
 
 " ===================== Start of Plugin Settings =====================
@@ -328,4 +375,75 @@ call plug#end()
 set laststatus=2
 
 
+"************************
+"*Part: closetag
+"*Desc:  
+"************************
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.wxml'
 
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+""************************
+""*Part: NERDTree Settings
+""*Desc:  
+""************************
+"
+"nmap <C-n> :NERDTreeToggle<CR>
+"
+"" Close if only NERDTree is open
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"
+"let g:NERDTreeGitStatusWithFlags = 1
+"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"let g:NERDTreeGitStatusNodeColorization = 1
+"let g:NERDTreeColorMapCustom = {
+"    \ "Staged"    : "#0ee375",
+"    \ "Modified"  : "#d9bf91",
+"    \ "Renamed"   : "#51C9FC",
+"    \ "Untracked" : "#FCE77C",
+"    \ "Unmerged"  : "#FC51E6",
+"    \ "Dirty"     : "#FFBD61",
+"    \ "Clean"     : "#87939A",
+"    \ "Ignored"   : "#808080"
+"    \ }
+"
+"
+"let g:NERDTreeIgnore = ['^node_modules$']
