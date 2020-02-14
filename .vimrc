@@ -24,6 +24,7 @@ source ~/.vim/shot_cut_source/md_snippits.vim
 source ~/.vim/shot_cut_source/coding_short_cut.vim
 
 
+
 map <Up> <Nop>
 map <Down> <Nop>
 map <Right> <Nop>
@@ -100,7 +101,7 @@ map R :source $MYVIMRC<CR>
 
 " Basic file system commands
 nnoremap <C-t> :!touch<Space>
-nnoremap <C-e> :!crf<Space>
+nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
 nnoremap <C-m> :!mv<Space>%<Space>
 
@@ -185,6 +186,22 @@ endfunc
 "************************
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+
+
+"************************
+"*Part: coc
+"*Desc:  
+"************************
+" fix the most annoying bug that coc has
+silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+let g:coc_global_extensions = [
+    \ 'coc-python', 'coc-java', 'coc-html',
+    \ 'coc-json', 'coc-css', 'coc-yank',
+    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-git',
+    \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
+    \ 'coc-stylelint', 'coc-explorer', 'coc-translator'
+    \ ]
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 function! s:check_back_space() abort
@@ -198,39 +215,22 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-
-
-
-"************************
-"*Part:golang 
-"*Desc:  
-"************************
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-
-"************************
-"*Part: coc
-"*Desc:  
-"************************
-" fix the most annoying bug that coc has
-silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-let g:coc_global_extensions = [
-    \ 'coc-python', 'coc-java', 'coc-html',
-    \ 'coc-json', 'coc-css', 'coc-yank',
-    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore',
-    \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
-    \ 'coc-stylelint'
-    \ ]
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
+nmap tt :CocCommand explorer<CR>
+nmap ts <Plug>(coc-translator-p)
 
 " Remap for format selected region
 xmap <C-s>  <Plug>(coc-format-selected)
 nmap <C-s>  <Plug>(coc-format-selected)
+
 
 
 "************************
@@ -239,11 +239,7 @@ nmap <C-s>  <Plug>(coc-format-selected)
 "************************
 call plug#begin('~/.vim/plugged')
 
-
-"************************
-"*Part: dress up
-"*Desc:  
-"************************
+" dress up
 set termguicolors
 Plug 'mhinz/vim-startify'
 Plug 'liuchengxu/eleline.vim'
@@ -255,10 +251,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'chrisbra/Colorizer'
 
 
-"************************
-"*Part: markdown
-"*Desc:  
-"************************
+" markdown
 "Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
@@ -289,30 +282,13 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 
 
-""************************
-""*Part: Nerd Tree plugins
-""*Desc:  
-""************************
-"Plug 'preservim/nerdtree'
-"Plug 'tsony-tsonev/nerdtree-git-plugin'
-"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-"Plug 'ryanoasis/vim-devicons'
-"Plug 'scrooloose/nerdcommenter'
-
-
-"************************
-"*Part: something useful
-"*Desc:  
-"************************
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" something useful
+"Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
 
     
-"************************
-"*Part: snips
-"*Desc:  
-"************************
+" snips
 " Track the engine.
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -322,16 +298,15 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 
 
+" editor
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-surround'
 
 
-"************************
-"*Part: coding
-"*Desc:  
-"************************
+" coding
 " Tex
 Plug 'lervag/vimtex'
 
@@ -350,9 +325,6 @@ Plug 'jelera/vim-javascript-syntax', { 'for': ['vim-plug', 'php', 'html', 'javas
 "Plug 'jaxbot/browserlink.vim'
 Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
-
-" Go
-Plug 'fatih/vim-go' , { 'for': ['go', 'vim-plug'], 'tag': '*' }
 
 " Python
 " Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
@@ -421,29 +393,21 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 
-""************************
-""*Part: NERDTree Settings
-""*Desc:  
-""************************
-"
-"nmap <C-n> :NERDTreeToggle<CR>
-"
-"" Close if only NERDTree is open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"
-"let g:NERDTreeGitStatusWithFlags = 1
-"let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-"let g:NERDTreeGitStatusNodeColorization = 1
-"let g:NERDTreeColorMapCustom = {
-"    \ "Staged"    : "#0ee375",
-"    \ "Modified"  : "#d9bf91",
-"    \ "Renamed"   : "#51C9FC",
-"    \ "Untracked" : "#FCE77C",
-"    \ "Unmerged"  : "#FC51E6",
-"    \ "Dirty"     : "#FFBD61",
-"    \ "Clean"     : "#87939A",
-"    \ "Ignored"   : "#808080"
-"    \ }
-"
-"
-"let g:NERDTreeIgnore = ['^node_modules$']
+"************************
+"*Part: FZF
+"*Desc:  
+"************************
+
+"************************
+"*Part: vim-multiple-cursor
+"*Desc:  
+"************************
+let g:multi_cursor_use_default_mapping = 0
+let g:multi_cursor_start_word_key = '<c-k>'
+let g:multi_cursor_select_all_word_key = '<a-k>'
+let g:multi_cursor_start_key = 'g<c-k>'
+let g:multi_cursor_select_all_key = 'g<a-k>'
+let g:multi_cursor_next_key = '<c-k>'
+let g:multi_cursor_prev_key = '<c-p>'
+let g:multi_cursor_skip_key = '<C-s>'
+let g:multi_cursor_quit_key = '<Esc>'
