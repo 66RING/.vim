@@ -1,11 +1,11 @@
-" c, go
-autocmd Filetype cpp,c,go inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>c4l
-autocmd Filetype cpp,c,go inoremap ,{ {}<++><Esc>F}i
-autocmd Filetype cpp,c,go inoremap ,( ()<++><Esc>F)i
-autocmd Filetype cpp,c,go inoremap ,[ []<++><Esc>F]i
-autocmd Filetype cpp,c,go inoremap ," ""<++><Esc>F"i
-autocmd Filetype cpp,c,go inoremap ,' ''<++><Esc>F'i
-autocmd Filetype cpp,c,go inoremap ,< <><++><Esc>F>i
+" c, go, json, sh
+autocmd Filetype cpp,c,go,json,sh inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>c4l
+autocmd Filetype cpp,c,go,json,sh inoremap ,{ {}<++><Esc>F}i
+autocmd Filetype cpp,c,go,json,sh inoremap ,( ()<++><Esc>F)i
+autocmd Filetype cpp,c,go,json,sh inoremap ,[ []<++><Esc>F]i
+autocmd Filetype cpp,c,go,json,sh inoremap ," ""<++><Esc>F"i
+autocmd Filetype cpp,c,go,json,sh inoremap ,' ''<++><Esc>F'i
+autocmd Filetype cpp,c,go,json,sh inoremap ,< <><++><Esc>F>i
 
 
 

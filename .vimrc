@@ -136,7 +136,6 @@ noremap tx :r !figlet
 "************************
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 
-
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -202,8 +201,7 @@ let g:coc_global_extensions = [
     \ 'coc-stylelint', 'coc-explorer', 'coc-translator'
     \ ]
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -252,7 +250,6 @@ Plug 'chrisbra/Colorizer'
 
 
 " markdown
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
 
@@ -281,15 +278,9 @@ let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 
-
-" something useful
-"Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
-
     
-" snips
-" Track the engine.
+"" snips
+"" Track the engine.
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 let g:UltiSnipsExpandTrigger="<c-e>"
@@ -298,12 +289,14 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 
 
-" editor
+" something useful
+"Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'francoiscabrol/ranger.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
 
 
 " coding
@@ -393,21 +386,3 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 
-"************************
-"*Part: FZF
-"*Desc:  
-"************************
-
-"************************
-"*Part: vim-multiple-cursor
-"*Desc:  
-"************************
-let g:multi_cursor_use_default_mapping = 0
-let g:multi_cursor_start_word_key = '<c-k>'
-let g:multi_cursor_select_all_word_key = '<a-k>'
-let g:multi_cursor_start_key = 'g<c-k>'
-let g:multi_cursor_select_all_key = 'g<a-k>'
-let g:multi_cursor_next_key = '<c-k>'
-let g:multi_cursor_prev_key = '<c-p>'
-let g:multi_cursor_skip_key = '<C-s>'
-let g:multi_cursor_quit_key = '<Esc>'
