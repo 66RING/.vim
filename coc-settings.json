@@ -88,6 +88,8 @@
             "k": "nodeNext",
             "j": "collapse",
             "l": "expand",
+            "J": "gotoParent",
+            "L": "openInVsplit",
             
             "*": "toggleSelection",
             "<tab>": "actionMenu",
@@ -97,9 +99,7 @@
             "o": "expandOrCollapse",
             "<cr>": "open",
             "e": "open",
-            "L": "openInVsplit",
             "t": "openInTab",
-            "I": "gotoParent",
             
             "yp": "copyFilepath",
             "yn": "copyFilename",

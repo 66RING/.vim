@@ -104,6 +104,8 @@ nnoremap <C-t> :!touch<Space>
 nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
 nnoremap <C-m> :!mv<Space>%<Space>
+" choose a buffer to go
+nnoremap <TAB> :buffer<Space>
 
 
 "************************
@@ -157,7 +159,7 @@ func! RunCode()
     elseif &filetype == 'java'
         exec 'terminal time java %'
     elseif &filetype == 'sh'
-        :!time bash %
+        exec 'terminal time bash %'
 	elseif &filetype == 'markdown'
 		exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
@@ -174,6 +176,8 @@ func! CompileGcc()
         exec '! clang % -o %<'
     elseif &filetype == 'cpp'
         exec '! clang++ % -o %<'
+    elseif &filetype == 'java'
+        exec '! javac % -o %<'
     endif                                                                              
 
 endfunc
@@ -293,8 +297,6 @@ let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 "Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'francoiscabrol/ranger.vim'
-Plug 'rbgrouleff/bclose.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
 
