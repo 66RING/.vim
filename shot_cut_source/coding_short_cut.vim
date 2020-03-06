@@ -1,11 +1,11 @@
 " c, go, json, sh
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>c4l
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,{ {}<++><Esc>F}i
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,( ()<++><Esc>F)i
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,[ []<++><Esc>F]i
-autocmd Filetype java,cpp,c,go,json,sh inoremap ," ""<++><Esc>F"i
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,' ''<++><Esc>F'i
-autocmd Filetype java,cpp,c,go,json,sh inoremap ,< <><++><Esc>F>i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>c4l
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,{ {}<++><Esc>F}i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,( ()<++><Esc>F)i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,[ []<++><Esc>F]i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ," ""<++><Esc>F"i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,' ''<++><Esc>F'i
+autocmd Filetype *script,java,cpp,c,go,json,sh inoremap ,< <><++><Esc>F>i
 
 
 

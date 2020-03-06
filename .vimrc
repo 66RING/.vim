@@ -7,7 +7,6 @@
 "                                 
 "
 "
-"
 
 " ===
 " === Auto load for first time uses
@@ -29,6 +28,8 @@ map <Up> <Nop>
 map <Down> <Nop>
 map <Right> <Nop>
 map <Left> <Nop>
+
+
 
 set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
@@ -96,8 +97,6 @@ map s <nop>
 map Q :q<CR>
 map R :source $MYVIMRC<CR>
 
-"" Alias replace all to S
-"nnoremap S :%s//g<Left><Left>
 
 " Basic file system commands
 nnoremap <C-t> :!touch<Space>
@@ -106,6 +105,34 @@ nnoremap <C-d> :!mkdir<Space>
 nnoremap <C-m> :!mv<Space>%<Space>
 " choose a buffer to go
 nnoremap <TAB> :buffer<Space>
+
+
+"************************
+"*Part: fcitx auto switch CN/EN
+"*Desc:  
+"************************
+let g:input_toggle = 1
+function! Fcitx2en()
+   let s:input_status = system("fcitx-remote")
+   if s:input_status == 2
+      let g:input_toggle = 1
+      let l:a = system("fcitx-remote -c")
+   endif
+endfunction
+
+function! Fcitx2zh()
+   let s:input_status = system("fcitx-remote")
+   if s:input_status != 2 && g:input_toggle == 1
+      let l:a = system("fcitx-remote -o")
+      let g:input_toggle = 0
+   endif
+endfunction
+
+"set ttimeoutlen=150
+"退出插入模式
+autocmd InsertLeave * call Fcitx2en()
+""进入插入模式
+"autocmd InsertEnter * call Fcitx2zh()
 
 
 "************************
@@ -151,21 +178,35 @@ map <F5> :call RunCode()<CR>
 func! RunCode()
     exec "w" 
     if &filetype == 'c' 
-        exec 'terminal time ./%<'
+		set splitbelow
+		:sp
+        :term time ./%<
     elseif &filetype == 'cpp'
-        exec 'terminal time ./%<'
+		set splitbelow
+		:sp
+        :term time ./%<
     elseif &filetype == 'python'
-        exec 'terminal time python %'
+		set splitbelow
+		:sp
+        :term time python %
     elseif &filetype == 'java'
-        exec 'terminal time java %'
+		set splitbelow
+		:sp
+        :term time java %
     elseif &filetype == 'sh'
-        exec 'terminal time bash %'
+		set splitbelow
+		:sp
+        :term time bash %
 	elseif &filetype == 'markdown'
 		exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
 	elseif &filetype == 'vimwiki'
 		exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
+    elseif &filetype == 'go'
+		set splitbelow
+		:sp
+		:term time go run %
     endif                                                                              
 endfunc
 
@@ -173,15 +214,38 @@ map <F6> :call CompileGcc()<CR>
 func! CompileGcc()
     exec "w" 
     if &filetype == 'c' 
-        exec '! clang % -o %<'
+		set splitbelow
+		:sp
+        term clang -g % -o %<
     elseif &filetype == 'cpp'
-        exec '! clang++ % -o %<'
+		set splitbelow
+		:sp
+        term clang++ -g % -o %<
     elseif &filetype == 'java'
-        exec '! javac % -o %<'
+		set splitbelow
+		:sp
+        term javac %
+    elseif &filetype == 'typescript'
+		set splitbelow
+		:sp
+        :term time tsc %
     endif                                                                              
-
 endfunc
 
+" debugging with gdb
+map <F7> :call DebugwithGDB()<CR>
+func! DebugwithGDB()
+    exec "w" 
+    if &filetype == 'c' 
+		set splitbelow
+		:sp
+        :term gdb %<
+    elseif &filetype == 'cpp'
+		set splitbelow
+		:sp
+        :term gdb %<
+    endif                                                                              
+endfunc
 
 "************************
 "*Part: setting for neovim
@@ -298,7 +362,12 @@ let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
+Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
+Plug 'majutsushi/tagbar'
+
+
+" search selected
+Plug 'bronson/vim-visual-star-search'
 
 
 " coding
@@ -327,8 +396,6 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
 
-" emoji in vim
-Plug 'junegunn/vim-emoji'
 
 
 call plug#end()
@@ -386,5 +453,27 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 let g:closetag_close_shortcut = '<leader>>'
+
+
+"************************
+"*Part: tagbar
+"*Desc:  
+"************************
+nmap T :TagbarToggle<CR>
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '/usr/bin/markdown2ctags',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
+
 
 
