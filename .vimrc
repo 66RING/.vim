@@ -103,8 +103,8 @@ nnoremap <C-t> :!touch<Space>
 nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
 nnoremap <C-m> :!mv<Space>%<Space>
-" choose a buffer to go
-nnoremap <TAB> :buffer<Space>
+nnoremap ]b :bnext<CR>
+nnoremap [b :bprevious<CR>
 
 
 "************************
@@ -180,23 +180,23 @@ func! RunCode()
     if &filetype == 'c' 
 		set splitbelow
 		:sp
-        :term time ./%<
+        :term ./%<
     elseif &filetype == 'cpp'
 		set splitbelow
 		:sp
-        :term time ./%<
+        :term ./%<
     elseif &filetype == 'python'
 		set splitbelow
 		:sp
-        :term time python %
+        :term python %
     elseif &filetype == 'java'
 		set splitbelow
 		:sp
-        :term time java %
+        :term java %
     elseif &filetype == 'sh'
 		set splitbelow
 		:sp
-        :term time bash %
+        :term bash %
 	elseif &filetype == 'markdown'
 		exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
@@ -206,7 +206,7 @@ func! RunCode()
     elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term time go run %
+		:term go run %
     endif                                                                              
 endfunc
 
@@ -228,7 +228,7 @@ func! CompileGcc()
     elseif &filetype == 'typescript'
 		set splitbelow
 		:sp
-        :term time tsc %
+        :term tsc %
     endif                                                                              
 endfunc
 
@@ -246,6 +246,7 @@ func! DebugwithGDB()
         :term gdb %<
     endif                                                                              
 endfunc
+
 
 "************************
 "*Part: setting for neovim
@@ -371,6 +372,9 @@ Plug 'bronson/vim-visual-star-search'
 
 
 " coding
+" golang
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 " Tex
 Plug 'lervag/vimtex'
 
@@ -476,4 +480,32 @@ let g:tagbar_type_markdown = {
 \ }
 
 
+"************************
+"*Part: vim-go
+"*Desc:  
+"************************
+let g:go_def_mapping_enabled = 0
+let g:go_template_autocreate = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_textobj_enabled = 0
+let g:go_highlight_array_whitespace_error = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_chan_whitespace_error = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_string_spellcheck = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_trailing_whitespace_error = 1
+let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_variable_declarations = 0
 
+autocmd BufWritePre,FileWritePre *.go  exe "GoImports"
