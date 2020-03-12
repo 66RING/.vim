@@ -103,8 +103,8 @@ nnoremap <C-t> :!touch<Space>
 nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
 nnoremap <C-m> :!mv<Space>%<Space>
-nnoremap ]b :bnext<CR>
-nnoremap [b :bprevious<CR>
+nnoremap <LEADER>] :bnext<CR>
+nnoremap <LEADER>[ :bprevious<CR>
 
 
 "************************
