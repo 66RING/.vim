@@ -102,7 +102,7 @@ map R :source $MYVIMRC<CR>
 nnoremap <C-t> :!touch<Space>
 nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
-nnoremap <C-m> :!mv<Space>%<Space>
+"nnoremap <C-m> :!mv<Space>%<Space>
 nnoremap <LEADER>] :bnext<CR>
 nnoremap <LEADER>[ :bprevious<CR>
 
@@ -508,4 +508,6 @@ let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
 
+au FileType go nmap <leader>d <Plug>(go-doc)
+au FileType go nmap <F6>      <Plug>(go-build)
 autocmd BufWritePre,FileWritePre *.go  exe "GoImports"
