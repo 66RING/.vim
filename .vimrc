@@ -31,6 +31,7 @@ map <Left> <Nop>
 
 
 
+
 set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
 set termencoding=utf-8
@@ -70,7 +71,7 @@ noremap P "+p
 noremap m J  
 
 "************************
-"*Part: split screen
+"*Part: split window
 "*Desc:  
 "************************
 map sl :set splitright<CR>:vsplit<CR>
@@ -367,6 +368,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
 Plug 'majutsushi/tagbar'
+Plug 'easymotion/vim-easymotion'
 
 
 " search selected
@@ -413,6 +415,14 @@ call plug#end()
 "*Desc:  
 "************************
 set laststatus=2
+
+
+"************************
+"*Part: easymotion
+"*Desc:  
+"************************
+let g:EasyMotion_do_mapping = 'off'
+nmap ss <Plug>(easymotion-sn)
 
 
 "************************
