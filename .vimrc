@@ -312,9 +312,10 @@ call plug#begin('~/.vim/plugged')
 " dress up
 set termguicolors
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/eleline.vim'
-Plug 'bling/vim-bufferline'
-"Plug 'vim-airline/vim-airline'
+"Plug 'liuchengxu/eleline.vim'
+"Plug 'bling/vim-bufferline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
@@ -410,11 +411,39 @@ call plug#end()
 
 " ===================== Start of Plugin Settings =====================
 
+
 "************************
-"*Part: eleline.vim
+"*Part: airline.vim
 "*Desc:  
 "************************
-set laststatus=2
+"set laststatus=2
+let g:airline_theme='tomorrow'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
+" unicode symbols
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
 
 
 "************************
@@ -568,4 +597,5 @@ function! s:CBReturnCount(count) abort
 		execute ':sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
 	endif
 endfunction
+
 
