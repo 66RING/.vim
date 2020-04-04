@@ -195,7 +195,7 @@ func! RunCode()
     elseif &filetype == 'java'
 		set splitbelow
 		:sp
-        :term java %
+        :term java %<
     elseif &filetype == 'sh'
 		set splitbelow
 		:sp
@@ -210,6 +210,8 @@ func! RunCode()
 		set splitbelow
 		:sp
 		:term go run %
+    elseif &filetype == 'processing'
+		:RunProcessing
     endif                                                                              
 endfunc
 
@@ -405,6 +407,8 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
 
+" Processing
+Plug 'sophacles/vim-processing'
 
 
 call plug#end()
@@ -599,3 +603,8 @@ function! s:CBReturnCount(count) abort
 endfunction
 
 
+"************************
+"*Part: Processing
+"*Desc:  
+"************************
+let g:processing_no_default_mappings = 1
