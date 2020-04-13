@@ -12,11 +12,11 @@ autocmd Filetype markdown inoremap ,< <><++><Esc>F>i
 autocmd Filetype markdown inoremap ,$ $$<++><Esc>F$i
 autocmd Filetype markdown inoremap ,$$ $$$$<++><Esc>F$hi
 
-autocmd Filetype markdown inoremap <buffer> ,1 #<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,2 ##<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,3 ###<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,4 ####<Space><Enter><++><Esc>kA
-autocmd Filetype markdown inoremap <buffer> ,5 #####<Space><Enter><++><Esc>kA
+autocmd Filetype markdown inoremap <buffer> ,1 #<Space>
+autocmd Filetype markdown inoremap <buffer> ,2 ##<Space>
+autocmd Filetype markdown inoremap <buffer> ,3 ###<Space>
+autocmd Filetype markdown inoremap <buffer> ,4 ####<Space>
+autocmd Filetype markdown inoremap <buffer> ,5 #####<Space>
 
 
 
