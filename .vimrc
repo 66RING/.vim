@@ -23,13 +23,10 @@ source ~/.vim/shot_cut_source/md_snippits.vim
 source ~/.vim/shot_cut_source/coding_short_cut.vim
 
 
-
 map <Up> <Nop>
 map <Down> <Nop>
 map <Right> <Nop>
 map <Left> <Nop>
-
-
 
 
 set enc=utf8
@@ -38,6 +35,9 @@ set termencoding=utf-8
 set encoding=utf-8
 
 colorscheme gruvbox
+let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_italic=1
+
 set number
 set relativenumber
 set cursorline
