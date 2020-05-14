@@ -221,11 +221,11 @@ func! CompileGcc()
     if &filetype == 'c' 
 		set splitbelow
 		:sp
-        term clang -g % -o %<
+        term gcc -g % -o %<
     elseif &filetype == 'cpp'
 		set splitbelow
 		:sp
-        term clang++ -g % -o %<
+        term g++ -g % -o %<
     elseif &filetype == 'java'
 		set splitbelow
 		:sp
