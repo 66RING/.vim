@@ -33,6 +33,7 @@ set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
 set termencoding=utf-8
 set encoding=utf-8
+"set colorcolumn=80
 
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='soft'
@@ -274,8 +275,11 @@ let g:coc_global_extensions = [
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
     \ 'coc-stylelint', 'coc-explorer', 'coc-translator'
     \ ]
+
+" coc statusline
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" tab to expend
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -303,6 +307,15 @@ nmap ts <Plug>(coc-translator-p)
 xmap <C-s>  <Plug>(coc-format-selected)
 nmap <C-s>  <Plug>(coc-format-selected)
 
+" Coc multiple cursor 
+" override the highlight of multiple cursor
+"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+nmap <silent> <C-w> <Plug>(coc-cursors-word)
+xmap <silent> <C-w> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
 
 
 "************************
@@ -368,7 +381,7 @@ let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 "Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
 Plug 'majutsushi/tagbar'
 Plug 'easymotion/vim-easymotion'
