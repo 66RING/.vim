@@ -1,5 +1,8 @@
 " default map
 inoremap ,f <Esc>/<++><CR>:nohlsearch<CR>c4l
+inoremap ,} {}<++><Esc>F}i
+inoremap ,) ()<++><Esc>F)i
+inoremap ,] []<++><Esc>F]i
 inoremap ,{ {}<++><Esc>F}i
 inoremap ,( ()<++><Esc>F)i
 inoremap ,[ []<++><Esc>F]i

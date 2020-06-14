@@ -150,6 +150,13 @@ tnoremap <LEADER><Esc> <C-\><C-n>
 " to next <++>
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
+function! VimDocOfCword()
+	let l:cword = expand('<cword>')
+    exec ":h ".l:cword
+endfunction
+autocmd FileType vim nmap <leader>d :call VimDocOfCword()<CR>
+
+
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 silent !mkdir -p ~/.config/nvim/tmp/sessions
@@ -202,10 +209,10 @@ func! RunCode()
 		:sp
         :term bash %
 	elseif &filetype == 'markdown'
-		exec 'MarkdownPreviewStop'
+		"exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
 	elseif &filetype == 'vimwiki'
-		exec 'MarkdownPreviewStop'
+		"exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
     elseif &filetype == 'go'
 		set splitbelow
