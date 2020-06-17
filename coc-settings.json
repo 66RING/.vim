@@ -153,7 +153,7 @@
 	"git.removedSign.text":"-",
 	"git.topRemovedSign.text": "*",
 	"git.changeRemovedSign.text": "▒",
-	"git.enableGlobalStatus": false,
+	"git.enableGlobalStatus": true,
 	"git.signOffset": 2,
 	"python.autoComplete.addBrackets": true,
 	"python.jediEnabled": false,
@@ -164,6 +164,7 @@
 	"javascript.suggest.names": true,
 	"javascript.suggestionActions.enabled": true,
 	"json.format.enable": true,
+    "translator.engines": ["youdao"],
 	"languageserver": {
 		"lua": {
 			"command": "lua-lsp",

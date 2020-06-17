@@ -335,12 +335,12 @@ nmap <leader>x  <Plug>(coc-cursors-operator)
 call plug#begin('~/.vim/plugged')
 
 " dress up
-set termguicolors
+"set termguicolors
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/eleline.vim'
-Plug 'bling/vim-bufferline'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+"Plug 'liuchengxu/eleline.vim'
+"Plug 'bling/vim-bufferline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
@@ -400,6 +400,7 @@ Plug 'easymotion/vim-easymotion'
 " search selected
 Plug 'bronson/vim-visual-star-search'
 
+Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
 
 " coding
 " golang
@@ -443,41 +444,49 @@ call plug#end()
 "*Part: eleline
 "*Desc:  
 "************************
-set laststatus=2
+"set laststatus=2
 
 
 "************************
 "*Part: airline.vim
 "*Desc:  
 "************************
-"set laststatus=2
-"let g:airline_theme='tomorrow'
-"
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ''
-"let g:airline#extensions#tabline#left_alt_sep = ''
-"
-"" unicode symbols
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
-"
-"" unicode symbols
-"let g:airline_symbols.crypt = '🔒'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.spell = 'Ꞩ'
-"let g:airline_symbols.notexists = 'Ɇ'
-"let g:airline_symbols.whitespace = 'Ξ'
-"
-"" powerline symbols
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
+set laststatus=2
+let g:airline_theme='tomorrow'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+
+" unicode symbols
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+
+" section
+let g:airline_skip_empty_sections = 1
+let g:airline_section_b = airline#section#create(['%{get(g:,''coc_git_status'')}'])
+
+" that close
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
 
 
 "************************
