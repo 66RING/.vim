@@ -54,6 +54,8 @@ set tabstop=4
 set softtabstop=4   
 set shiftwidth=4    
 set expandtab 
+set lazyredraw
+autocmd FileType vue,javascript set shiftwidth=2
 
 let mapleader=" "
 
@@ -71,14 +73,15 @@ noremap P "+p
 " m for join
 noremap m J  
 
+
 "************************
-"*Part: split window
-"*Desc:  
+"* split window
 "************************
 map sl :set splitright<CR>:vsplit<CR>
 map sj :set nosplitright<CR>:vsplit<CR>
 map si :set nosplitbelow<CR>:split<CR>
 map sk :set splitbelow<CR>:split<CR>
+map st :set splitbelow<CR>:sp<CR>:term<CR>
 "=== split screen movement===
 noremap <LEADER>w <C-w>w
 noremap <LEADER>i <C-w>k
@@ -93,8 +96,7 @@ map s<right> :vertical resize-5<CR>
 
 
 "************************
-"*Part: file operation
-"*Desc:  
+"* file operation
 "************************
 map S :w<CR>
 map s <nop>
@@ -112,8 +114,7 @@ nnoremap <LEADER>[ :bprevious<CR>
 
 
 "************************
-"*Part: fcitx auto switch CN/EN
-"*Desc:  
+"* fcitx auto switch CN/EN
 "************************
 let g:input_toggle = 1
 function! Fcitx2en()
@@ -140,8 +141,7 @@ autocmd InsertLeave * call Fcitx2en()
 
 
 "************************
-"*Part: something Useful
-"*Desc:  
+"* something Useful
 "************************
 " open a terminal window
 noremap <LEADER>/ :terminal<CR>
@@ -171,19 +171,13 @@ endif
 noremap tx :r !figlet
 
 "************************
-"*Part: last position
-"*Desc: Uncomment the following to have Vim jump to the last position when       
+"* last position
 "************************
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 
 "************************
-"*Part: quick run code
-"*Desc:  
+"* quick run code
 "************************
 map <F5> :call RunCode()<CR>
 func! RunCode()
@@ -220,6 +214,8 @@ func! RunCode()
 		:term go run %
     elseif &filetype == 'processing'
 		:RunProcessing
+    elseif &filetype == 'html'
+		:!google-chrome-stable %
     endif                                                                              
 endfunc
 
@@ -229,15 +225,15 @@ func! CompileGcc()
     if &filetype == 'c' 
 		set splitbelow
 		:sp
-        term gcc -g % -o %<
+        :term gcc -g % -o %<
     elseif &filetype == 'cpp'
 		set splitbelow
 		:sp
-        term g++ -g % -o %<
+        :term g++ -g % -o %<
     elseif &filetype == 'java'
 		set splitbelow
 		:sp
-        term javac %
+        :term javac %
     elseif &filetype == 'typescript'
 		set splitbelow
 		:sp
@@ -262,85 +258,25 @@ endfunc
 
 
 "************************
-"*Part: setting for neovim
-"*Desc:  
+"* setting for neovim
 "************************
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
-
 "************************
-"*Part: coc
-"*Desc:  
-"************************
-" fix the most annoying bug that coc has
-silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
-let g:coc_global_extensions = [
-    \ 'coc-python', 'coc-java', 'coc-html',
-    \ 'coc-json', 'coc-css', 'coc-yank',
-    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-git',
-    \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
-    \ 'coc-stylelint', 'coc-explorer', 'coc-translator'
-    \ ]
-
-" coc statusline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" tab to expend
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" disable suggest for:
-autocmd FileType markdown let b:coc_suggest_disable = 1
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap tt :CocCommand explorer<CR>
-nmap ts <Plug>(coc-translator-p)
-
-" Remap for format selected region
-xmap <C-s>  <Plug>(coc-format-selected)
-nmap <C-s>  <Plug>(coc-format-selected)
-
-" Coc multiple cursor 
-" override the highlight of multiple cursor
-"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-nmap <silent> <C-w> <Plug>(coc-cursors-word)
-xmap <silent> <C-w> <Plug>(coc-cursors-range)
-" use normal command like `<leader>xi(`
-nmap <leader>x  <Plug>(coc-cursors-operator)
-
-
-"************************
-"*Part: Plug
-"*Desc:  
+"* Plug
 "************************
 call plug#begin('~/.vim/plugged')
 
 " dress up
-"set termguicolors
+set termguicolors
+Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
-"Plug 'liuchengxu/eleline.vim'
+Plug 'liuchengxu/eleline.vim'
+Plug 'mg979/vim-xtabline'
 "Plug 'bling/vim-bufferline'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
@@ -351,31 +287,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
 
-" markdown preview setting
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_browser = ''
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1,
-    \ 'sequence_diagrams': {},
-    \ 'flowchart_diagrams': {}
-    \ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-
+Plug 'dkarter/bullets.vim'
     
 "" snips
 "" Track the engine.
@@ -385,6 +297,7 @@ let g:UltiSnipsExpandTrigger="<c-e>"
 let g:UltiSnipsJumpForwardTrigger="<c-e>"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
+Plug 'tpope/vim-commentary'
 
 
 " something useful
@@ -437,74 +350,137 @@ Plug 'sophacles/vim-processing'
 
 call plug#end()
 
-" ===================== Start of Plugin Settings =====================
+
+
+" ____  _             _         ____       _   _   _                 
+"|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___ 
+"| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
+"|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
+"|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
+"               |___/                                      |___/     
 
 
 "************************
-"*Part: eleline
-"*Desc:  
+"* coc
+"************************
+" fix the most annoying bug that coc has
+silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+let g:coc_global_extensions = [
+    \ 'coc-python', 'coc-java', 'coc-html',
+    \ 'coc-json', 'coc-css', 'coc-yank',
+    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-git',
+    \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
+    \ 'coc-stylelint', 'coc-explorer', 'coc-translator', 
+    \ 'coc-vetur'  
+    \ ]
+" npm i eslint eslint-plugin-vue -D in root workspace to use vetur
+
+" coc statusline
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" tab to expend
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" disable suggest for:
+autocmd FileType markdown let b:coc_suggest_disable = 1
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nmap tt :CocCommand explorer<CR>
+nmap ts <Plug>(coc-translator-p)
+
+" Remap for format selected region
+xmap <C-s>  <Plug>(coc-format-selected)
+nmap <C-s>  <Plug>(coc-format-selected)
+
+" Coc multiple cursor 
+" override the highlight of multiple cursor
+"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+nmap <silent> <C-w> <Plug>(coc-cursors-word)
+xmap <silent> <C-w> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+nmap <leader>x  <Plug>(coc-cursors-operator)
+
+
+"************************
+"* eleline
 "************************
 "set laststatus=2
 
 
 "************************
-"*Part: airline.vim
-"*Desc:  
+"* airline.vim
 "************************
-set laststatus=2
-let g:airline_theme='tomorrow'
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-
-" unicode symbols
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" unicode symbols
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-
-" section
-let g:airline_skip_empty_sections = 1
-let g:airline_section_b = airline#section#create(['%{get(g:,''coc_git_status'')}'])
-
-" that close
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
+"set laststatus=2
+"let g:airline_theme='tomorrow'
+"
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ''
+"let g:airline#extensions#tabline#left_alt_sep = ''
+"
+"" unicode symbols
+"if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"endif
+"
+"" unicode symbols
+"let g:airline_symbols.crypt = '🔒'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.spell = 'Ꞩ'
+"let g:airline_symbols.notexists = 'Ɇ'
+"let g:airline_symbols.whitespace = 'Ξ'
+"
+"" powerline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
+"
+"" section
+"let g:airline_skip_empty_sections = 1
+"let g:airline_section_b = airline#section#create(['%{get(g:,''coc_git_status'')}'])
+"
+"" that close
+"let g:airline#extensions#tagbar#enabled = 0
+"let g:airline#extensions#hunks#enabled = 0
 
 
 "************************
-"*Part: easymotion
-"*Desc:  
+"* easymotion
 "************************
 let g:EasyMotion_do_mapping = 'off'
 nmap ss <Plug>(easymotion-sn)
 
 
 "************************
-"*Part: closetag
-"*Desc:  
+"* closetag
 "************************
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.wxml'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.wxml,*.vue'
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -514,7 +490,7 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 "
-let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml,vue'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -540,12 +516,11 @@ let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
 "
-let g:closetag_close_shortcut = '<leader>>'
+"let g:closetag_close_shortcut = '<leader>>'
 
 
 "************************
-"*Part: tagbar
-"*Desc:  
+"* tagbar
 "************************
 nmap T :TagbarToggle<CR>
 let g:tagbar_type_markdown = {
@@ -565,8 +540,7 @@ let g:tagbar_type_markdown = {
 
 
 "************************
-"*Part: vim-go
-"*Desc:  
+"* vim-go
 "************************
 let g:go_def_mapping_enabled = 0
 let g:go_template_autocreate = 0
@@ -598,8 +572,7 @@ autocmd BufWritePre,FileWritePre *.go  exe "GoImports"
 
 
 "************************
-"*Part: OmniSharp
-"*Desc: fork from https://github.com/theniceboy
+"* OmniSharp
 "************************
 let g:OmniSharp_typeLookupInPreview = 1
 let g:omnicomplete_fetch_full_documentation = 1
@@ -643,7 +616,72 @@ endfunction
 
 
 "************************
-"*Part: Processing
-"*Desc:  
+"* Processing
 "************************
 let g:processing_no_default_mappings = 1
+
+
+"************************
+"* vim-commentary
+"************************
+autocmd FileType apache setlocal commentstring=#\ %s
+
+
+"************************
+"* EasyAlign
+"************************
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+"************************
+"* markdown preview setting
+"************************
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_command_for_global = 0
+let g:mkdp_open_to_the_world = 0
+let g:mkdp_open_ip = ''
+let g:mkdp_browser = ''
+let g:mkdp_echo_preview_url = 0
+let g:mkdp_browserfunc = ''
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {}
+    \ }
+let g:mkdp_markdown_css = ''
+let g:mkdp_highlight_css = ''
+let g:mkdp_port = ''
+
+
+"************************
+"* bullets
+"************************
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
+" disable default key mapping
+let g:bullets_set_mappings = 0 "
+
+
+"************************
+"* xtabline
+"************************
+let g:xtabline_settings = {}
+let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
+let g:xtabline_settings.enable_mappings = 0
+let g:xtabline_settings.last_open_first = 1
+" :h xtabline.txt
