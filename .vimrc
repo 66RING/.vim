@@ -109,8 +109,8 @@ nnoremap <C-t> :!touch<Space>
 nnoremap <C-e> :e<Space>
 nnoremap <C-d> :!mkdir<Space>
 "nnoremap <C-m> :!mv<Space>%<Space>
-nnoremap <LEADER>] :bnext<CR>
-nnoremap <LEADER>[ :bprevious<CR>
+"nnoremap <LEADER>] :bnext<CR>
+"nnoremap <LEADER>[ :bprevious<CR>
 
 
 "************************
@@ -272,11 +272,8 @@ call plug#begin('~/.vim/plugged')
 set termguicolors
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
-Plug 'liuchengxu/eleline.vim'
+Plug '66RING/eleline.vim'
 Plug 'mg979/vim-xtabline'
-"Plug 'bling/vim-bufferline'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
@@ -289,6 +286,7 @@ Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'dkarter/bullets.vim'
     
+
 "" snips
 "" Track the engine.
 Plug 'SirVer/ultisnips'
@@ -300,15 +298,20 @@ let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 Plug 'tpope/vim-commentary'
 
 
+" git
+Plug 'airblade/vim-gitgutter'
+
+
 " something useful
 "Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
-Plug 'majutsushi/tagbar'
 Plug 'easymotion/vim-easymotion'
 
+" taglist
+Plug 'liuchengxu/vista.vim'
 
 " search selected
 Plug 'bronson/vim-visual-star-search'
@@ -423,48 +426,8 @@ nmap <leader>x  <Plug>(coc-cursors-operator)
 "************************
 "* eleline
 "************************
-"set laststatus=2
-
-
-"************************
-"* airline.vim
-"************************
-"set laststatus=2
-"let g:airline_theme='tomorrow'
-"
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ''
-"let g:airline#extensions#tabline#left_alt_sep = ''
-"
-"" unicode symbols
-"if !exists('g:airline_symbols')
-"    let g:airline_symbols = {}
-"endif
-"
-"" unicode symbols
-"let g:airline_symbols.crypt = '🔒'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.spell = 'Ꞩ'
-"let g:airline_symbols.notexists = 'Ɇ'
-"let g:airline_symbols.whitespace = 'Ξ'
-"
-"" powerline symbols
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
-"
-"" section
-"let g:airline_skip_empty_sections = 1
-"let g:airline_section_b = airline#section#create(['%{get(g:,''coc_git_status'')}'])
-"
-"" that close
-"let g:airline#extensions#tagbar#enabled = 0
-"let g:airline#extensions#hunks#enabled = 0
+set laststatus=2
+let g:eleline_powerline_fonts = 1
 
 
 "************************
@@ -517,26 +480,6 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 "let g:closetag_close_shortcut = '<leader>>'
-
-
-"************************
-"* tagbar
-"************************
-nmap T :TagbarToggle<CR>
-let g:tagbar_type_markdown = {
-    \ 'ctagstype': 'markdown',
-    \ 'ctagsbin' : '/usr/bin/markdown2ctags',
-    \ 'ctagsargs' : '-f - --sort=yes',
-    \ 'kinds' : [
-        \ 's:sections',
-        \ 'i:images'
-    \ ],
-    \ 'sro' : '|',
-    \ 'kind2scope' : {
-        \ 's' : 'section',
-    \ },
-    \ 'sort': 0,
-\ }
 
 
 "************************
@@ -680,8 +623,36 @@ let g:bullets_set_mappings = 0 "
 "************************
 "* xtabline
 "************************
+" :h xtabline.txt
 let g:xtabline_settings = {}
 let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
 let g:xtabline_settings.enable_mappings = 0
-let g:xtabline_settings.last_open_first = 1
-" :h xtabline.txt
+"let g:xtabline_settings.last_open_first = 1
+nnoremap <LEADER>] :XTabNextBuffer<CR>
+nnoremap <LEADER>[ :XTabPrevBuffer<CR>
+nnoremap *p :XTabPinBuffer<CR>
+
+
+"************************
+"* GitGutter
+"************************
+let g:gitgutter_signs = 0
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_preview_win_floating = 1
+" autocmd BufWritePost * GitGutter
+nnoremap <LEADER>gf :GitGutterFold<CR>
+nnoremap <LEADER>gh :GitGutterPreviewHunk<CR>
+nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
+nnoremap <LEADER>g= :GitGutterNextHunk<CR>
+
+
+"************************
+"* Vista.vim
+"************************
+":Vista [EXECUTIVE]: open vista window powered by EXECUTIVE
+noremap T :Vista!!<CR>
+noremap <LEADER>v :silent! Vista finder<CR>
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_default_executive = 'ctags'
+

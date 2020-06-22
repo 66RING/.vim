@@ -139,7 +139,6 @@
             ">>": "gitUnstage"
 	},
 	"git.enableGutters": true,
-	"git.branchCharacter":"\uf408",
 	"git.addGBlameToBufferVar": false,
 	"git.addGBlameToVirtualText": false,
 	"git.virtualTextPrefix": " ❯❯❯ ",
@@ -152,7 +151,7 @@
 	"git.changedSign.text":"~",
 	"git.removedSign.text":"-",
 	"git.topRemovedSign.text": "*",
-	"git.changeRemovedSign.text": "▒",
+	"git.changeRemovedSign.text": "≃",
 	"git.enableGlobalStatus": true,
 	"git.signOffset": 2,
 	"python.autoComplete.addBrackets": true,
