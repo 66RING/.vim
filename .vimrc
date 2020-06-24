@@ -35,9 +35,11 @@ set termencoding=utf-8
 set encoding=utf-8
 "set colorcolumn=80
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='soft'
-let g:gruvbox_italic=1
+set background=dark
+colorscheme onedark
+let g:onedark_terminal_italics = 1
+" let g:gruvbox_contrast_dark='soft'
+" let g:gruvbox_italic=1
 
 set number
 set relativenumber
@@ -617,7 +619,7 @@ let g:bullets_enabled_file_types = [
     \ 'scratch'
     \]
 " disable default key mapping
-let g:bullets_set_mappings = 0 "
+" let g:bullets_set_mappings = 0 "
 
 
 "************************
@@ -625,12 +627,17 @@ let g:bullets_set_mappings = 0 "
 "************************
 " :h xtabline.txt
 let g:xtabline_settings = {}
-let g:xtabline_settings.tabline_modes = ['buffers', 'tabs', 'arglist']
+let g:xtabline_settings.tabline_modes = ['buffers']
 let g:xtabline_settings.enable_mappings = 0
+let g:xtabline_settings.buffer_filtering = 0
+let g:xtabline_settings.tab_number_in_buffers_mode = 0
 "let g:xtabline_settings.last_open_first = 1
 nnoremap <LEADER>] :XTabNextBuffer<CR>
 nnoremap <LEADER>[ :XTabPrevBuffer<CR>
 nnoremap *p :XTabPinBuffer<CR>
+nmap <BS> <Plug>(XT-Select-Buffer)
+
+
 
 
 "************************

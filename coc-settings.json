@@ -109,8 +109,8 @@
             "p": "pasteFile",
             "dD": "deleteForever",
             
-            "<c-v>": "addFile",
-            "<c-n>": "addDirectory",
+            "mf": "addFile",
+            "md": "addDirectory",
             "cw": "rename",
             
             "zh": "toggleHidden",
