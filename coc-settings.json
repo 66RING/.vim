@@ -95,7 +95,7 @@
             "gl": "expandRecursive",
             "gj": "collapseRecursive",
             "o": "expandOrCollapse",
-            "<cr>": "open",
+            "<cr>": ["expandable?", "cd", "open"],
             "e": "open",
             "t": "open:tab",
             "s": "open:split",

@@ -8,6 +8,9 @@
 "
 "
 
+let g:eleline_kindness_face =  '😳'
+"let g:eleline_badass_face =  '🥶'
+
 " ===
 " === Auto load for first time uses
 " ===
@@ -485,6 +488,12 @@ let g:closetag_shortcut = '>'
 
 
 "************************
+"* tagalong
+"************************
+let g:tagalong_additional_filetypes = ['vue', 'wxml']
+
+
+"************************
 "* vim-go
 "************************
 let g:go_def_mapping_enabled = 0
@@ -662,4 +671,10 @@ noremap T :Vista!!<CR>
 noremap <LEADER>v :silent! Vista finder<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 
