@@ -110,9 +110,7 @@ map R :source $MYVIMRC<CR>
 
 
 " Basic file system commands
-nnoremap <C-t> :!touch<Space>
-nnoremap <C-e> :e<Space>
-nnoremap <C-d> :!mkdir<Space>
+nnoremap <C-d> :!mkdir<Space>-p<Space>
 "nnoremap <C-m> :!mv<Space>%<Space>
 "nnoremap <LEADER>] :bnext<CR>
 "nnoremap <LEADER>[ :bprevious<CR>
@@ -314,6 +312,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
 Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
 
 " taglist
 Plug 'liuchengxu/vista.vim'
@@ -321,7 +321,6 @@ Plug 'liuchengxu/vista.vim'
 " search selected
 Plug 'bronson/vim-visual-star-search'
 
-Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
 
 " coding
 " golang
@@ -677,4 +676,15 @@ let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
+
+
+"************************
+"* fzf.vim
+"************************
+noremap <C-p> :Files<CR>
+noremap <C-h> :History<CR>
+noremap tT :Buffers<CR>
+noremap <leader>: :History:<CR>
+let g:fzf_preview_window = 'right:60%'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 
