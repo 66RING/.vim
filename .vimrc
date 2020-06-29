@@ -8,8 +8,8 @@
 "
 "
 
-let g:eleline_kindness_face =  '😳'
-"let g:eleline_badass_face =  '🥶'
+let g:eleline_kindness_face =  '😏'
+let g:eleline_badass_face =  '😈'
 
 " ===
 " === Auto load for first time uses
@@ -38,12 +38,14 @@ set termencoding=utf-8
 set encoding=utf-8
 "set colorcolumn=80
 
+set termguicolors
 set background=dark
 colorscheme onedark
 let g:onedark_terminal_italics = 1
-" let g:gruvbox_contrast_dark='soft'
-" let g:gruvbox_italic=1
+" disable background color
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
+syntax on
 set number
 set relativenumber
 set cursorline
@@ -272,7 +274,6 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 call plug#begin('~/.vim/plugged')
 
 " dress up
-set termguicolors
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug '66RING/eleline.vim'
@@ -390,6 +391,10 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" key to confirm
+inoremap <silent><expr> <C-d> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " disable suggest for:
 autocmd FileType markdown let b:coc_suggest_disable = 1
@@ -684,7 +689,8 @@ let g:vista#renderer#icons = {
 noremap <C-p> :Files<CR>
 noremap <C-h> :History<CR>
 noremap tT :Buffers<CR>
-noremap <leader>: :History:<CR>
+noremap <leader>; :History:<CR>
+noremap <leader>: :Commands<CR>
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 

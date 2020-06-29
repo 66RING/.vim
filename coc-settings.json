@@ -154,6 +154,7 @@
 	"git.changeRemovedSign.text": "≃",
 	"git.enableGlobalStatus": true,
 	"git.signOffset": 2,
+    "java.errors.incompleteClasspath.severity": "ignore",
 	"python.autoComplete.addBrackets": true,
 	"python.jediEnabled": false,
 	"python.formatting.provider": "none",
@@ -195,5 +196,5 @@
 				 }
 			 }
 		}
-	}
+    }
 }
