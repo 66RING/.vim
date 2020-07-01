@@ -396,13 +396,13 @@ endfunction
 inoremap <silent><expr> <C-d> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" disable suggest for:
+" disable coc suggest for:
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ get(b:, 'coc_suggest_disable') == 1 ? "\<C-n>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Highlight symbol under cursor on CursorHold
