@@ -155,13 +155,6 @@ tnoremap <LEADER><Esc> <C-\><C-n>
 " to next <++>
 map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
-function! VimDocOfCword()
-	let l:cword = expand('<cword>')
-    exec ":h ".l:cword
-endfunction
-autocmd FileType vim nmap <leader>d :call VimDocOfCword()<CR>
-
-
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 silent !mkdir -p ~/.config/nvim/tmp/sessions
@@ -174,6 +167,22 @@ endif
 
 " Call figlet
 noremap tx :r !figlet
+
+
+"************************
+"* find doc
+"************************
+nmap <leader>d :call FindDoc()<CR>
+func! FindDoc()
+    if &filetype == 'python' 
+		set nosplitbelow
+		:sp
+        :exec "term python -c \"help('".expand("<cword>")."')\" | cat"
+    elseif &filetype == 'vim'
+        :exec "h ". expand("<cword>")
+    endif                                                                              
+endfunc
+
 
 "************************
 "* last position
@@ -307,10 +316,8 @@ Plug 'airblade/vim-gitgutter'
 
 
 " something useful
-"Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf.vim'
@@ -347,7 +354,6 @@ Plug 'alvan/vim-closetag'
 Plug 'AndrewRadev/tagalong.vim'
 
 " Python
-" Plug 'tmhedberg/SimpylFold', { 'for' :['python', 'vim-plug'] }
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim'
@@ -392,8 +398,8 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" key to confirm
-inoremap <silent><expr> <C-d> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" key to confirm suggest
+" inoremap <silent><expr> <C-d> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " disable coc suggest for:
@@ -420,6 +426,8 @@ nmap ts <Plug>(coc-translator-p)
 " Remap for format selected region
 xmap <C-s>  <Plug>(coc-format-selected)
 nmap <C-s>  <Plug>(coc-format-selected)
+let coc_snippet_next = "<C-l>"
+let coc_snippet_prev = "<C-j>"
 
 " Coc multiple cursor 
 " override the highlight of multiple cursor
@@ -583,6 +591,7 @@ let g:processing_no_default_mappings = 1
 "* vim-commentary
 "************************
 autocmd FileType apache setlocal commentstring=#\ %s
+autocmd FileType c,cpp setlocal commentstring=//\ %s
 
 
 "************************
@@ -649,6 +658,7 @@ nnoremap <LEADER>] :XTabNextBuffer<CR>
 nnoremap <LEADER>[ :XTabPrevBuffer<CR>
 nnoremap *p :XTabPinBuffer<CR>
 nmap <BS> <Plug>(XT-Select-Buffer)
+nmap r<BS> :XTabCloseBuffer<CR>
 
 
 
