@@ -62,7 +62,7 @@ set softtabstop=4
 set shiftwidth=4    
 set expandtab 
 set lazyredraw
-autocmd FileType vue,javascript set shiftwidth=2
+autocmd FileType vue set shiftwidth=2
 
 let mapleader=" "
 
@@ -298,7 +298,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'dhruvasagar/vim-table-mode'
 
 Plug 'dkarter/bullets.vim'
-    
+   
 
 "" snips
 "" Track the engine.
