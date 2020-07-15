@@ -11,15 +11,6 @@
 let g:eleline_kindness_face =  '😏'
 let g:eleline_badass_face =  '😈'
 
-" ===
-" === Auto load for first time uses
-" ===
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
 
 " shotcut configuration file
 source ~/.vim/shot_cut_source/md_snippits.vim
@@ -76,6 +67,8 @@ noremap j h
 noremap J 5h
 noremap L 5l
 noremap Y "+y
+" :[range]y[ank] [x]
+noremap yY :%y+<CR> 
 noremap P "+p
 " m for join
 noremap m J  
