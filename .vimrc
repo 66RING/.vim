@@ -68,10 +68,12 @@ noremap J 5h
 noremap L 5l
 noremap Y "+y
 " :[range]y[ank] [x]
-noremap yY :%y+<CR> 
+nnoremap yY :%y+<CR> 
 noremap P "+p
 " m for join
 noremap m J  
+noremap <C-j> 0
+noremap <C-l> $
 
 
 "************************
@@ -220,14 +222,14 @@ func! RunCode()
 		:sp
 		:term go run %
     elseif &filetype == 'processing'
-		:RunProcessing
+        exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
     elseif &filetype == 'html'
 		:!google-chrome-stable %
     endif                                                                              
 endfunc
 
-map <F6> :call CompileGcc()<CR>
-func! CompileGcc()
+map <F6> :call BuildCode()<CR>
+func! BuildCode()
     exec "w" 
     if &filetype == 'c' 
 		set splitbelow
@@ -245,6 +247,8 @@ func! CompileGcc()
 		set splitbelow
 		:sp
         :term tsc %
+    elseif &filetype == 'processing'
+        exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
     endif                                                                              
 endfunc
 
@@ -295,12 +299,7 @@ Plug 'dkarter/bullets.vim'
 
 "" snips
 "" Track the engine.
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-e>"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsSnippetDirectories= [$HOME.'/.vim/config/Ultisnips']
 Plug 'tpope/vim-commentary'
 
 
@@ -374,11 +373,13 @@ call plug#end()
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
 let g:coc_global_extensions = [
     \ 'coc-python', 'coc-java', 'coc-html',
-    \ 'coc-json', 'coc-css', 'coc-yank',
-    \ 'coc-tsserver', 'coc-lists', 'coc-gitignore', 'coc-git',
+    \ 'coc-json', 'coc-css', 
+    \ 'coc-tsserver', 'coc-tslint-plugin',
+    \ 'coc-lists', 'coc-yank',
+    \ 'coc-gitignore', 'coc-git',
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
     \ 'coc-stylelint', 'coc-explorer', 'coc-translator', 
-    \ 'coc-vetur'  
+    \ 'coc-vetur'  , 'coc-snippets'
     \ ]
 " npm i eslint eslint-plugin-vue -D in root workspace to use vetur
 
@@ -419,8 +420,15 @@ nmap ts <Plug>(coc-translator-p)
 " Remap for format selected region
 xmap <C-s>  <Plug>(coc-format-selected)
 nmap <C-s>  <Plug>(coc-format-selected)
+
+" coc-snippets
+imap <C-e> <Plug>(coc-snippets-expand)
 let coc_snippet_next = "<C-l>"
 let coc_snippet_prev = "<C-j>"
+
+" coc-diagnostic
+nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
 
 " Coc multiple cursor 
 " override the highlight of multiple cursor
