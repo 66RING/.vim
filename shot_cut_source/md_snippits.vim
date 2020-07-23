@@ -15,6 +15,8 @@ autocmd Filetype markdown inoremap ,< <><++><Esc>F>i
 autocmd Filetype markdown inoremap ,$ $$<++><Esc>F$i
 autocmd Filetype markdown inoremap ,$$ $$$$<++><Esc>F$hi
 
+autocmd Filetype markdown inoremap ,l [](<++>)<++><Esc>F]i
+
 autocmd Filetype markdown inoremap <buffer> ,1 #<Space>
 autocmd Filetype markdown inoremap <buffer> ,2 ##<Space>
 autocmd Filetype markdown inoremap <buffer> ,3 ###<Space>

@@ -225,6 +225,10 @@ func! RunCode()
         exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
     elseif &filetype == 'html'
 		:!google-chrome-stable %
+    elseif &filetype == 'lua'
+		set splitbelow
+		:sp
+		:term lua %
     endif                                                                              
 endfunc
 
@@ -310,7 +314,7 @@ Plug 'airblade/vim-gitgutter'
 " something useful
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' h h-> 'h h'
+Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' for sur line h h-> 'h h'
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
@@ -372,14 +376,14 @@ call plug#end()
 " fix the most annoying bug that coc has
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
 let g:coc_global_extensions = [
-    \ 'coc-python', 'coc-java', 'coc-html',
-    \ 'coc-json', 'coc-css', 
+    \ 'coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 
     \ 'coc-tsserver', 'coc-tslint-plugin',
     \ 'coc-lists', 'coc-yank',
     \ 'coc-gitignore', 'coc-git',
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
     \ 'coc-stylelint', 'coc-explorer', 'coc-translator', 
-    \ 'coc-vetur'  , 'coc-snippets'
+    \ 'coc-vetur'  , 'coc-snippets', 'coc-diagnostic', 
+    \ 'coc-style-helper'
     \ ]
 " npm i eslint eslint-plugin-vue -D in root workspace to use vetur
 
