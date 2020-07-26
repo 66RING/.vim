@@ -27,7 +27,7 @@ set enc=utf8
 set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
 set termencoding=utf-8
 set encoding=utf-8
-"set colorcolumn=80
+" set colorcolumn=80
 
 set termguicolors
 set background=dark
@@ -35,6 +35,8 @@ colorscheme onedark
 let g:onedark_terminal_italics = 1
 " disable background color
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+" autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=#666666 guibg=#666666
+" autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
 
 syntax on
 set number
@@ -211,6 +213,8 @@ func! RunCode()
 		set splitbelow
 		:sp
         :term bash %
+    elseif &filetype == 'vim'
+        :source %
 	elseif &filetype == 'markdown'
 		"exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
@@ -318,6 +322,7 @@ Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change '
 Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
+Plug 'voldikss/vim-translator'
 
 " taglist
 Plug 'liuchengxu/vista.vim'
@@ -381,7 +386,7 @@ let g:coc_global_extensions = [
     \ 'coc-lists', 'coc-yank',
     \ 'coc-gitignore', 'coc-git',
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
-    \ 'coc-stylelint', 'coc-explorer', 'coc-translator', 
+    \ 'coc-explorer',
     \ 'coc-vetur'  , 'coc-snippets', 'coc-diagnostic', 
     \ 'coc-style-helper'
     \ ]
@@ -419,7 +424,6 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap tt :CocCommand explorer<CR>
-nmap ts <Plug>(coc-translator-p)
 
 " Remap for format selected region
 xmap <C-s>  <Plug>(coc-format-selected)
@@ -709,3 +713,10 @@ noremap <leader>: :Commands<CR>
 let g:fzf_preview_window = 'right:60%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 
+
+"************************
+"* vim-translator
+"************************
+let g:translator_default_engines=['youdao', 'bing', 'baicizhan', 'haici']
+nmap <silent> ts <Plug>TranslateW
+vmap <silent> ts <Plug>TranslateWV

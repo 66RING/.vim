@@ -159,8 +159,7 @@
 	"javascript.suggest.names": true,
 	"javascript.suggestionActions.enabled": true,
 	"json.format.enable": true,
-    "translator.engines": ["youdao"],
-    	"snippets.ultisnips.directories": [
+    "snippets.ultisnips.directories": [
 		"$HOME/.config/nvim/config/Ultisnips/",
 		"$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"
 	],
