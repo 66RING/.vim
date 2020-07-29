@@ -109,7 +109,7 @@ map R :source $MYVIMRC<CR>
 
 
 " Basic file system commands
-nnoremap <C-d> :!mkdir<Space>-p<Space>
+" nnoremap <C-d> :!mkdir<Space>-p<Space>
 "nnoremap <C-m> :!mv<Space>%<Space>
 "nnoremap <LEADER>] :bnext<CR>
 "nnoremap <LEADER>[ :bprevious<CR>
@@ -224,7 +224,7 @@ func! RunCode()
     elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run %
+		:term go run *
     elseif &filetype == 'processing'
         exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
     elseif &filetype == 'html'
@@ -392,8 +392,8 @@ let g:coc_global_extensions = [
     \ ]
 " npm i eslint eslint-plugin-vue -D in root workspace to use vetur
 
-" coc statusline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" " coc statusline
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " tab to expend
 function! s:check_back_space() abort
@@ -401,18 +401,18 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" key to confirm suggest
-" inoremap <silent><expr> <C-d> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" disable coc suggest for:
-autocmd FileType markdown let b:coc_suggest_disable = 1
-
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ get(b:, 'coc_suggest_disable') == 1 ? "\<C-n>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" key to confirm suggest
+" inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> complete_info().selected!=-1 ? "\<C-y>" : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" disable coc suggest for:
+autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -540,6 +540,8 @@ let g:go_highlight_trailing_whitespace_error = 1
 let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
+let g:go_term_enabled = 1
+let g:go_term_mode = 'split '
 
 au FileType go nmap <leader>d <Plug>(go-doc)
 au FileType go nmap <F6>      <Plug>(go-build)
