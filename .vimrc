@@ -5,11 +5,14 @@
 " _| |/ // // /  / / _, _/ /___   
 "(_)___/___/_/  /_/_/ |_|\____/   
 "                                 
-"
-"
+" Author: 66RING@github.com
 
 let g:eleline_kindness_face =  '😏'
 let g:eleline_badass_face =  '😈'
+
+
+" net
+let g:netrw_browsex_viewer= "setsid xdg-open" 
 
 
 " shotcut configuration file
@@ -40,6 +43,7 @@ autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
 syntax on
 set number
+set numberwidth=1
 set relativenumber
 set cursorline
 set showcmd
@@ -55,7 +59,7 @@ set softtabstop=4
 set shiftwidth=4    
 set expandtab 
 set lazyredraw
-autocmd FileType vue set shiftwidth=2
+autocmd FileType vue,javascript,css set shiftwidth=2
 
 let mapleader=" "
 
@@ -78,9 +82,9 @@ noremap <C-j> 0
 noremap <C-l> $
 
 
-"************************
-"* split window
-"************************
+"========================
+" split window
+"========================
 map sl :set splitright<CR>:vsplit<CR>
 map sj :set nosplitright<CR>:vsplit<CR>
 map si :set nosplitbelow<CR>:split<CR>
@@ -99,9 +103,9 @@ map s<left> :vertical resize+5<CR>
 map s<right> :vertical resize-5<CR>
 
 
-"************************
-"* file operation
-"************************
+"========================
+" file operation
+"========================
 map S :w<CR>
 map s <nop>
 map Q :q<CR>
@@ -115,9 +119,9 @@ map R :source $MYVIMRC<CR>
 "nnoremap <LEADER>[ :bprevious<CR>
 
 
-"************************
-"* fcitx auto switch CN/EN
-"************************
+"========================
+" fcitx auto switch CN/EN
+"========================
 let g:input_toggle = 1
 function! Fcitx2en()
    let s:input_status = system("fcitx-remote")
@@ -142,9 +146,9 @@ autocmd InsertLeave * call Fcitx2en()
 "autocmd InsertEnter * call Fcitx2zh()
 
 
-"************************
-"* something Useful
-"************************
+"========================
+" something Useful
+"========================
 " open a terminal window
 noremap <LEADER>/ :terminal<CR>
 " exit terminal mode
@@ -166,9 +170,9 @@ endif
 noremap tx :r !figlet
 
 
-"************************
-"* find doc
-"************************
+"========================
+" find doc
+"========================
 nmap <leader>d :call FindDoc()<CR>
 func! FindDoc()
     if &filetype == 'python' 
@@ -181,15 +185,15 @@ func! FindDoc()
 endfunc
 
 
-"************************
-"* last position
-"************************
+"========================
+" last position
+"========================
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
 
 
-"************************
-"* quick run code
-"************************
+"========================
+" quick run code
+"========================
 map <F5> :call RunCode()<CR>
 func! RunCode()
     exec "w" 
@@ -276,15 +280,15 @@ func! DebugwithGDB()
 endfunc
 
 
-"************************
-"* setting for neovim
-"************************
+"========================
+" setting for neovim
+"========================
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
-"************************
-"* Plug
-"************************
+"========================
+" Plug
+"========================
 call plug#begin('~/.vim/plugged')
 
 " dress up
@@ -357,7 +361,7 @@ Plug 'AndrewRadev/tagalong.vim'
 " Python
 Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
-Plug 'tweekmonster/braceless.vim'
+" Plug 'tweekmonster/braceless.vim'
 
 " Processing
 Plug 'sophacles/vim-processing'
@@ -375,9 +379,9 @@ call plug#end()
 "               |___/                                      |___/     
 
 
-"************************
-"* coc
-"************************
+"========================
+" coc
+"========================
 " fix the most annoying bug that coc has
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
 let g:coc_global_extensions = [
@@ -449,23 +453,23 @@ xmap <silent> <C-w> <Plug>(coc-cursors-range)
 nmap <leader>x  <Plug>(coc-cursors-operator)
 
 
-"************************
-"* eleline
-"************************
+"========================
+" eleline
+"========================
 set laststatus=2
 let g:eleline_powerline_fonts = 1
 
 
-"************************
-"* easymotion
-"************************
+"========================
+" easymotion
+"========================
 let g:EasyMotion_do_mapping = 'off'
 nmap ss <Plug>(easymotion-sn)
 
 
-"************************
-"* closetag
-"************************
+"========================
+" closetag
+"========================
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
@@ -479,7 +483,7 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 " filetypes like xml, html, xhtml, ...
 " These are the file types where this plugin is enabled.
 "
-let g:closetag_filetypes = 'html,xhtml,phtml,vue'
+let g:closetag_filetypes = 'html,xhtml,phtml,vue,javascript'
 
 " filetypes like xml, xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -508,15 +512,15 @@ let g:closetag_shortcut = '>'
 "let g:closetag_close_shortcut = '<leader>>'
 
 
-"************************
-"* tagalong
-"************************
+"========================
+" tagalong
+"========================
 let g:tagalong_additional_filetypes = ['vue', 'wxml']
 
 
-"************************
-"* vim-go
-"************************
+"========================
+" vim-go
+"========================
 let g:go_def_mapping_enabled = 0
 let g:go_template_autocreate = 0
 let g:go_doc_keywordprg_enabled = 0
@@ -543,14 +547,15 @@ let g:go_highlight_variable_declarations = 0
 let g:go_term_enabled = 1
 let g:go_term_mode = 'split '
 
-au FileType go nmap <leader>d <Plug>(go-doc)
+au FileType go nmap <LEADER>d <Plug>(go-doc)
 au FileType go nmap <F6>      <Plug>(go-build)
+au FileType go nnoremap <LEADER>rn :GoRename<CR>
 autocmd BufWritePre,FileWritePre *.go  exe "GoImports"
 
 
-"************************
-"* OmniSharp
-"************************
+"========================
+" OmniSharp
+"========================
 let g:OmniSharp_typeLookupInPreview = 1
 let g:omnicomplete_fetch_full_documentation = 1
 
@@ -592,31 +597,31 @@ function! s:CBReturnCount(count) abort
 endfunction
 
 
-"************************
-"* Processing
-"************************
+"========================
+" Processing
+"========================
 let g:processing_no_default_mappings = 1
 
 
-"************************
-"* vim-commentary
-"************************
+"========================
+" vim-commentary
+"========================
 autocmd FileType apache setlocal commentstring=#\ %s
 autocmd FileType c,cpp setlocal commentstring=//\ %s
 
 
-"************************
-"* EasyAlign
-"************************
+"========================
+" EasyAlign
+"========================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
 
-"************************
-"* markdown preview setting
-"************************
+"========================
+" markdown preview setting
+"========================
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_refresh_slow = 0
@@ -642,9 +647,9 @@ let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
 
 
-"************************
-"* bullets
-"************************
+"========================
+" bullets
+"========================
 let g:bullets_enabled_file_types = [
     \ 'markdown',
     \ 'text',
@@ -655,9 +660,9 @@ let g:bullets_enabled_file_types = [
 " let g:bullets_set_mappings = 0 "
 
 
-"************************
-"* xtabline
-"************************
+"========================
+" xtabline
+"========================
 " :h xtabline.txt
 let g:xtabline_settings = {}
 let g:xtabline_settings.tabline_modes = ['buffers']
@@ -674,9 +679,9 @@ nmap r<BS> :XTabCloseBuffer<CR>
 
 
 
-"************************
-"* GitGutter
-"************************
+"========================
+" GitGutter
+"========================
 let g:gitgutter_signs = 0
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
@@ -688,9 +693,9 @@ nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
 nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
 
-"************************
-"* Vista.vim
-"************************
+"========================
+" Vista.vim
+"========================
 ":Vista [EXECUTIVE]: open vista window powered by EXECUTIVE
 noremap T :Vista!!<CR>
 noremap <LEADER>v :silent! Vista finder<CR>
@@ -704,9 +709,9 @@ let g:vista#renderer#icons = {
 \  }
 
 
-"************************
-"* fzf.vim
-"************************
+"========================
+" fzf.vim
+"========================
 noremap <C-p> :Files<CR>
 noremap <C-h> :History<CR>
 noremap tT :Buffers<CR>
@@ -716,9 +721,9 @@ let g:fzf_preview_window = 'right:60%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 
 
-"************************
-"* vim-translator
-"************************
-let g:translator_default_engines=['youdao', 'bing', 'baicizhan', 'haici']
+"========================
+" vim-translator
+"========================
+let g:translator_default_engines=['youdao', 'bing']
 nmap <silent> ts <Plug>TranslateW
 vmap <silent> ts <Plug>TranslateWV
