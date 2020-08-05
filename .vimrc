@@ -220,15 +220,13 @@ func! RunCode()
     elseif &filetype == 'vim'
         :source %
 	elseif &filetype == 'markdown'
-		"exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
 	elseif &filetype == 'vimwiki'
-		"exec 'MarkdownPreviewStop'
 		exec 'MarkdownPreview'
     elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run *
+		:term go run %
     elseif &filetype == 'processing'
         exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
     elseif &filetype == 'html'
@@ -265,8 +263,8 @@ func! BuildCode()
 endfunc
 
 " debugging with gdb
-map <F7> :call DebugwithGDB()<CR>
-func! DebugwithGDB()
+map <F7> :call DebugWithGDB()<CR>
+func! DebugWithGDB()
     exec "w" 
     if &filetype == 'c' 
 		set splitbelow
@@ -724,6 +722,6 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 "========================
 " vim-translator
 "========================
-let g:translator_default_engines=['youdao', 'bing']
+let g:translator_default_engines=['youdao', 'bing', 'google']
 nmap <silent> ts <Plug>TranslateW
 vmap <silent> ts <Plug>TranslateWV
