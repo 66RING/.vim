@@ -26,20 +26,6 @@ let s:colors = {
       \ "vertsplit": get(s:overrides, "vertsplit", { "gui": "#181A1F", "cterm": "59", "cterm16": "15" }),
       \}
 
-function! onedark#GetColors()
-  return s:colors
-endfunction
-
-
-
-
-
-
-
-
-
-
-
 
 " vim:fdm=marker
 " Vim Color File
@@ -173,7 +159,6 @@ endfunction
 
 " Color Variables {{{
 
-let s:colors = onedark#GetColors()
 
 let s:red = s:colors.red
 let s:dark_red = s:colors.dark_red

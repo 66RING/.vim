@@ -291,7 +291,7 @@ call plug#begin('~/.vim/plugged')
 
 " dress up
 Plug 'ryanoasis/vim-devicons'
-Plug 'mhinz/vim-startify'
+Plug 'hardcoreplayers/dashboard-nvim'
 Plug '66RING/eleline.vim'
 Plug 'mg979/vim-xtabline'
 
@@ -452,10 +452,10 @@ nmap <leader>x  <Plug>(coc-cursors-operator)
 
 
 "========================
-" eleline
+" statu line
 "========================
-set laststatus=2
-let g:eleline_powerline_fonts = 1
+" set laststatus=2
+" let g:eleline_powerline_fonts = 1
 
 
 "========================
@@ -710,7 +710,7 @@ let g:vista#renderer#icons = {
 "========================
 " fzf.vim
 "========================
-noremap <C-p> :Files<CR>
+noremap <C-f> :Files<CR>
 noremap <C-h> :History<CR>
 noremap tT :Buffers<CR>
 noremap <leader>; :History:<CR>
@@ -725,3 +725,26 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 let g:translator_default_engines=['youdao', 'bing', 'google']
 nmap <silent> ts <Plug>TranslateW
 vmap <silent> ts <Plug>TranslateWV
+
+
+"========================
+" dashboard
+"========================
+let g:dashboard_default_executive = 'fzf'
+let g:dashboard_default_header = 'eye'
+let g:dashboard_custom_section={
+  \ 'empty_buffer': [' Empty Buffer'],
+  \ 'find_history': ['ﭯ History'],
+  \ 'find_files': [' Find Files'],
+  \ }
+function! EMPTY_BUFFER()
+    enew
+endfunction
+
+function! FIND_HISTORY()
+    History
+endfunction
+
+function! FIND_FILES()
+    Files
+endfunction
