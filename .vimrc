@@ -7,8 +7,7 @@
 "                                 
 " Author: 66RING@github.com
 
-let g:eleline_kindness_face =  '😏'
-let g:eleline_badass_face =  '😈'
+let g:custom_vim_status_icon = {"n": "😏 ","V":"😏 ","v":"😏 ","\<C-v>": "😏 ","i":"😈 ","R":"🧐 ","s":"🧐 ","t":"🧐 ","c":"😈 ","!":"SE"}
 
 
 " net
@@ -40,7 +39,7 @@ colorscheme onedark
 let g:onedark_terminal_italics = 1
 " disable background color
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-" autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=#666666 guibg=#666666
+" autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=black guibg=#666666
 " autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
 
 syntax on
