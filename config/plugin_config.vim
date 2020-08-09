@@ -81,13 +81,6 @@ nmap <leader>x  <Plug>(coc-cursors-operator)
 
 
 "========================
-" statu line
-"========================
-" set laststatus=2
-" let g:eleline_powerline_fonts = 1
-
-
-"========================
 " easymotion
 "========================
 let g:EasyMotion_do_mapping = 'off'
