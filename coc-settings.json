@@ -65,10 +65,6 @@
 	"explorer.quitOnOpen": true,
 	"explorer.sources": [
 		{
-			"name": "buffer",
-			"expand": true
-		},
-		{
 			"name": "file",
 			"expand": true
 		}

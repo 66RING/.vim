@@ -74,8 +74,7 @@ nmap <silent> <LEADER>= <Plug>(coc-diagnostic-next)
 "hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
 
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
-nmap <silent> <C-w> <Plug>(coc-cursors-word)
-xmap <silent> <C-w> <Plug>(coc-cursors-range)
+xmap <silent> <C-c> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 nmap <leader>x  <Plug>(coc-cursors-operator)
 
@@ -218,12 +217,6 @@ endfunction
 
 
 "========================
-" Processing
-"========================
-let g:processing_no_default_mappings = 1
-
-
-"========================
 " vim-commentary
 "========================
 autocmd FileType apache setlocal commentstring=#\ %s
@@ -284,7 +277,8 @@ let g:bullets_enabled_file_types = [
 " xtabline
 "========================
 " :h xtabline.txt
-let g:xtabline_settings = {}
+let g:xtabline_lazy = 1
+let g:xtabline_settings = get(g:, 'xtabline_settings', {})
 let g:xtabline_settings.tabline_modes = ['buffers']
 let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.buffer_filtering = 0
@@ -390,8 +384,6 @@ function! s:load_db()
         call add(l:dbs, {'name':l:line_content[0], 'url': l:line_content[1]})
       endfor
       return l:dbs
-    else
-      echo "db file doesn't exist"
     endif
 endfunction
 let g:dbs = s:load_db()

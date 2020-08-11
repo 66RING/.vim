@@ -64,7 +64,7 @@ endif
 
 let s:colors = {
       \ 'bg1':              ['#343d46',   '237'],
-      \ 'bg2':              ['#282828',   '235'],
+      \ 'bg2':              ['NONE',   '235'],
       \ 'bg3':              ['#3c3836',   '237'],
       \ 'bg4':              ['#3c3836',   '237'],
       \ 'bg5':              ['#504945',   '239'],
@@ -98,7 +98,7 @@ let s:colors = {
 if s:oceanic_material_dark_background == 1
   let s:colors['bg0']  = ['#282C34', '235']
 else
-  let s:colors['bg0']  = ['#1b2b34', '235']
+  let s:colors['bg0']  = ['NONE', '235']
 endif
 
 function! g:OceanicMaterialPalette()
@@ -173,8 +173,8 @@ function! s:apply_syntax_highlightings()
   endif
   exec 'hi Folded' . s:fg_grey1 . s:bg_bg2
   exec 'hi EndOfBuffer' . s:fg_bg0 . s:bg_none
-  exec 'hi IncSearch'. s:fg_bg1 . s:bg_orange .' cterm=NONE gui=NONE '
-  exec 'hi Search'. s:fg_bg0 . s:bg_green
+  exec 'hi IncSearch'. s:fg_bg1 . s:bg_grey1 .' cterm=NONE gui=NONE '
+  exec 'hi Search'. s:fg_bg1 . s:bg_grey2
   exec 'hi ColorColumn'. s:fg_none . s:bg_bg1
   exec 'hi Conceal'. s:fg_grey1 . s:bg_none
   exec 'hi Cursor'. s:fg_none . s:bg_none . s:reverse
