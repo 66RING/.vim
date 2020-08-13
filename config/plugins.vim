@@ -1,7 +1,10 @@
 "========================
-" Plug
+" Plugins
 "========================
 call plug#begin('~/.vim/plugged')
+
+" completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " dress up
 Plug 'ryanoasis/vim-devicons'
@@ -11,14 +14,14 @@ Plug 'mg979/vim-xtabline'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
-Plug 'chrisbra/Colorizer'
+" Plug 'norcalli/nvim-colorizer.lua'
 
 
 " markdown
-Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown', 'do': 'cd app & yarn install'  }
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'iamcco/markdown-preview.nvim', { 'for': 'markdown', 'on': 'MarkdownPreview',  'do': 'cd app & yarn install'  }
+Plug 'dhruvasagar/vim-table-mode', { 'for': 'markdown' }
 
-Plug 'dkarter/bullets.vim'
+Plug 'dkarter/bullets.vim', { 'for': 'markdown' }
    
 
 "" snips
@@ -32,16 +35,15 @@ Plug 'airblade/vim-gitgutter'
 
 
 " something useful
-Plug 'junegunn/vim-easy-align'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/vim-easy-align' , { 'on': ['<Plug>(EasyAlign)']}
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' for sur line h h-> 'h h'
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-sn)']}
+Plug 'junegunn/fzf.vim', { 'on': ['Files', 'History', 'Buffers',  'Commands']}
 " Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
-Plug 'voldikss/vim-translator'
+Plug 'voldikss/vim-translator', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV']}
 
 " taglist
-Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!', 'Vista!!']}
 
 " search selected
 Plug 'bronson/vim-visual-star-search'

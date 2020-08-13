@@ -10,7 +10,7 @@
 let g:custom_vim_status_icon = {"n": "😏 ","V":"😏 ","v":"😏 ","\<C-v>": "😏 ","i":"😈 ","R":"🧐 ","s":"🧐 ","t":"🤨 ","c":"😈 ","!":"SE"}
 
 
-" net
+" netrw
 let g:netrw_browsex_viewer= "setsid xdg-open" 
 
 
@@ -44,7 +44,7 @@ autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
 syntax on
 set number
-set numberwidth=1
+set numberwidth=3
 set relativenumber
 set cursorline
 set showcmd
@@ -60,7 +60,7 @@ set softtabstop=4
 set shiftwidth=4    
 set expandtab 
 set lazyredraw
-autocmd FileType vue,javascript,css set shiftwidth=2
+autocmd FileType vue,javascript,css setlocal shiftwidth=2
 
 let mapleader=" "
 
