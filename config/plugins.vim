@@ -82,6 +82,9 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 " Plug 'tweekmonster/braceless.vim'
 
+" Processing
+Plug 'sophacles/vim-processing', { 'for': ['processing'] }
+
 call plug#end()
 
 

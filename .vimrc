@@ -44,7 +44,7 @@ autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 
 syntax on
 set number
-set numberwidth=3
+set numberwidth=1
 set relativenumber
 set cursorline
 set showcmd
@@ -195,7 +195,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 "========================
 " quick run code
 "========================
-map <F5> :call RunCode()<CR>
+map <leader>R :call RunCode()<CR>
 func! RunCode()
     exec "w" 
     if &filetype == 'c' 
@@ -229,9 +229,13 @@ func! RunCode()
 		:sp
 		:term go run %
     elseif &filetype == 'processing'
-        exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
+		set splitbelow
+		:sp
+        exec "term processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --run"
     elseif &filetype == 'html'
-		:!google-chrome-stable %
+		set splitbelow
+		:sp
+		:term google-chrome-stable %
     elseif &filetype == 'lua'
 		set splitbelow
 		:sp
@@ -239,7 +243,7 @@ func! RunCode()
     endif                                                                              
 endfunc
 
-map <F6> :call BuildCode()<CR>
+map <leader>B :call BuildCode()<CR>
 func! BuildCode()
     exec "w" 
     if &filetype == 'c' 
@@ -259,12 +263,14 @@ func! BuildCode()
 		:sp
         :term tsc %
     elseif &filetype == 'processing'
-        exec "!processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
+		set splitbelow
+		:sp
+        exec "term processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
     endif                                                                              
 endfunc
 
 " debugging with gdb
-map <F7> :call DebugWithGDB()<CR>
+map <leader>D :call DebugWithGDB()<CR>
 func! DebugWithGDB()
     exec "w" 
     if &filetype == 'c' 
