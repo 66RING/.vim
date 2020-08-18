@@ -8,6 +8,11 @@
 " Author: 66RING@github.com
 
 let g:custom_vim_status_icon = {"n": "😏 ","V":"😏 ","v":"😏 ","\<C-v>": "😏 ","i":"😈 ","R":"🧐 ","s":"🧐 ","t":"🤨 ","c":"😈 ","!":"SE"}
+let g:nmode_color='#61AFEF'
+let g:imode_color='#d7ffd7'
+let g:vmode_color='#6272a4'
+let g:tmode_color='#99cc66'
+let g:cmode_color='#ffff66'
 
 
 " netrw

@@ -27,6 +27,17 @@ let s:colors = {
       \}
 
 
+
+
+
+
+
+
+
+
+
+
+
 " vim:fdm=marker
 " Vim Color File
 " Name:       onedark.vim

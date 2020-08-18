@@ -283,6 +283,7 @@ let g:xtabline_settings.tabline_modes = ['buffers']
 let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.buffer_filtering = 0
 let g:xtabline_settings.tab_number_in_buffers_mode = 0
+let g:xtabline_settings.theme = "mytheme"
 "let g:xtabline_settings.last_open_first = 1
 nnoremap <LEADER>] :XTabNextBuffer<CR>
 nnoremap <LEADER>[ :XTabPrevBuffer<CR>
