@@ -65,6 +65,8 @@ set softtabstop=4
 set shiftwidth=4    
 set expandtab 
 set lazyredraw
+set foldmethod=indent
+set foldlevel=99
 autocmd FileType vue,javascript,css setlocal shiftwidth=2
 
 let mapleader=" "
