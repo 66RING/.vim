@@ -339,7 +339,7 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
 "========================
 " vim-translator
 "========================
-let g:translator_default_engines=['youdao', 'bing', 'google']
+let g:translator_default_engines=['bing', 'google']
 nmap <silent> ts <Plug>TranslateW
 vmap <silent> ts <Plug>TranslateWV
 
