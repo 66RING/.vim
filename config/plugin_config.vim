@@ -19,7 +19,7 @@ let g:coc_global_extensions = [
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
     \ 'coc-explorer',
     \ 'coc-vetur'  , 'coc-snippets', 'coc-diagnostic', 
-    \ 'coc-style-helper'
+    \ 'coc-style-helper', 'coc-vimlsp'
     \ ]
 " npm i eslint eslint-plugin-vue -D in root workspace to use vetur
 

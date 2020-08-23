@@ -40,7 +40,7 @@ set encoding=utf-8
 
 set termguicolors
 set background=dark
-colorscheme onedark
+colorscheme oceanic_material
 " let g:onedark_terminal_italics = 1
 " disable background color
 autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE

@@ -24,7 +24,7 @@ endif
 
 let s:oceanic_material_transparent_background = get(g:,'oceanic_material_transparent_background',0)
 
-let s:oceanic_material_dark_background = get(g:,'oceanic_material_dark_background',0)
+let s:oceanic_material_background = get(g:,'oceanic_material_background','medium')
 
 let s:oceanic_material_allow_bold = get(g:,'oceanic_material_allow_bold', 0)
 
@@ -64,7 +64,7 @@ endif
 
 let s:colors = {
       \ 'bg1':              ['#343d46',   '237'],
-      \ 'bg2':              ['NONE',   '235'],
+      \ 'bg2':              ['#282828',   '235'],
       \ 'bg3':              ['#3c3836',   '237'],
       \ 'bg4':              ['#3c3836',   '237'],
       \ 'bg5':              ['#504945',   '239'],
@@ -95,10 +95,12 @@ let s:colors = {
       \ 'none':             ['NONE',      'NONE']
   \ }
 
-if s:oceanic_material_dark_background == 1
+if s:oceanic_material_background == 'medium'
   let s:colors['bg0']  = ['#282C34', '235']
-else
-  let s:colors['bg0']  = ['NONE', '235']
+elseif s:oceanic_material_background =='ocean'
+  let s:colors['bg0']  = ['#1b2b34', '235']
+elseif s:oceanic_material_background == 'darker'
+  let s:colors['bg0']  = ['#212121', 'NONE']
 endif
 
 function! g:OceanicMaterialPalette()
@@ -167,14 +169,14 @@ function! s:apply_syntax_highlightings()
     exec 'hi Normal' . s:fg_fg0 . s:bg_bg0
     exec 'hi Terminal' . s:fg_fg0 . s:bg_bg0
     exec 'hi ToolbarLine' . s:fg_fg1 . s:bg_bg3
-    exec 'hi SignColumn' . s:fg_fg0 . s:bg_bg0
+    exec 'hi SignColumn' . s:fg_fg0 . s:bg_none
     exec 'hi FoldColumn' . s:fg_grey0 . s:bg_bg2
     exec 'hi VertSplit' . s:fg_bg0 . s:bg_black
   endif
   exec 'hi Folded' . s:fg_grey1 . s:bg_bg2
   exec 'hi EndOfBuffer' . s:fg_bg0 . s:bg_none
-  exec 'hi IncSearch'. s:fg_bg1 . s:bg_grey1 .' cterm=NONE gui=NONE '
-  exec 'hi Search'. s:fg_bg1 . s:bg_grey2
+  exec 'hi IncSearch'. s:fg_bg1 . s:bg_orange .' cterm=NONE gui=NONE '
+  exec 'hi Search'. s:fg_bg0 . s:bg_green
   exec 'hi ColorColumn'. s:fg_none . s:bg_bg1
   exec 'hi Conceal'. s:fg_grey1 . s:bg_none
   exec 'hi Cursor'. s:fg_none . s:bg_none . s:reverse
@@ -803,17 +805,6 @@ function! s:apply_syntax_highlightings()
   exec 'hi coffeeObject' . s:fg_purple
   exec 'hi coffeeObjAssign' . s:fg_aqua
   "===============================================================
-  " C/C++
-  " vim-cpp-enhanced-highlight: https://github.com/octol/vim-cpp-enhanced-highlight
-  "===============================================================
-  exec 'hi cppSTLnamespace' . s:fg_purple
-  exec 'hi cppSTLtype' . s:fg_yellow
-  exec 'hi cppAccess' . s:fg_purple  . s:italic
-  exec 'hi cppStructure' . s:fg_red  . s:italic
-  exec 'hi cppSTLios' . s:fg_aqua
-  exec 'hi cppSTLiterator' . s:fg_purple  . s:italic
-  exec 'hi cppSTLexception' . s:fg_purple
-  "===============================================================
   " vim-lsp-cxx-highlight https://github.com/jackguo380/vim-lsp-cxx-highlight {{{
   "===============================================================
   exec 'hi LspCxxHlSkippedRegion' . s:fg_grey1
@@ -1320,28 +1311,10 @@ function! s:apply_syntax_highlightings()
   exec 'hi NERDTreeLinkFile' . s:fg_grey1
   exec 'hi NERDTreeLinkTarget' . s:fg_green
   "===============================================================
-  " andymass/vim-matchup
-  "===============================================================
-  exec 'hi MatchParenCur'. s:fg_none. s:bold
-  exec 'hi MatchWord'. s:fg_none. s:underline
-  exec 'hi MatchWordCur'. s:fg_none. s:underline
-  "===============================================================
   " easymotion/vim-easymotion
   "===============================================================
   exec 'hi EasyMotionTarget'. s:fg_bg0 . s:bg_green
   exec 'hi EasyMotionShade' . s:fg_grey1
-  "===============================================================
-  " justinmk/vim-sneak
-  "===============================================================
-  exec 'hi SneakLabelMask'. s:fg_green. s:bg_green
-  exec 'hi Sneak' . s:fg_bg0. s:bg_green
-  exec 'hi SneakLabel' . s:fg_bg0. s:bg_green
-  exec 'hi SneakScope' . s:fg_bg0 . s:bg_fg0
-  "===============================================================
-  " itchyny/vim-cursorword {{{
-  "===============================================================
-  exec 'hi CursorWord0'. s:bg_fg3
-  exec 'hi CursorWord1'. s:bg_fg3
   "===============================================================
   " mhinz/vim-startify
   "===============================================================
@@ -1381,6 +1354,7 @@ function! s:apply_syntax_highlightings()
   exec 'hi DashboardShortCut' . s:fg_red . s:bold
   exec 'hi DashboardFooter' . s:fg_purple .s:bold
   exec 'hi DashboardHeader' . s:fg_blue .s:bold
+  "===============================================================
 
 endfunction
 
