@@ -67,9 +67,12 @@ set expandtab
 set lazyredraw
 set foldmethod=indent
 set foldlevel=99
-autocmd FileType vue,javascript,css setlocal shiftwidth=2
-
+autocmd FileType json,vue,javascript,css setlocal shiftwidth=2
 let mapleader=" "
+
+set hidden
+set updatetime=100
+set shortmess+=c
 
 noremap h i
 noremap H I

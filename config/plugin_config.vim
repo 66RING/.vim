@@ -165,6 +165,7 @@ let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
 let g:go_term_enabled = 1
 let g:go_term_mode = 'split '
+let g:go_echo_go_info = 0
 
 au FileType go nmap <LEADER>d <Plug>(go-doc)
 au FileType go nmap <F6>      <Plug>(go-build)
@@ -316,24 +317,41 @@ noremap T :Vista!!<CR>
 noremap <LEADER>v :silent! Vista finder<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
-let g:vista_fzf_preview = ['right:50%']
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista_vimwiki_executive = 'markdown'
+let g:vista_disable_statusline = 1
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
 \   "function": "\uf794",
 \   "variable": "\uf71b",
 \  }
+let g:vista_executive_for = {
+  \ 'vimwiki': 'markdown',
+  \ 'pandoc': 'markdown',
+  \ 'markdown': 'toc',
+  \ 'yaml': 'coc',
+  \ 'typescript': 'coc',
+  \ 'typescriptreact': 'coc',
+  \ }
 
 
 "========================
-" fzf.vim
+" vim-clap
 "========================
-noremap <C-f> :Files<CR>
-noremap <C-h> :History<CR>
-noremap tT :Buffers<CR>
-noremap <leader>; :History:<CR>
-noremap <leader>: :Commands<CR>
-let g:fzf_preview_window = 'right:60%'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.5 } }
+let g:clap_cache_directory = '~/cache/clap'
+let g:clap_theme = 'material_design_dark'
+let g:clap_layout = { 'relative': 'editor' }
+let g:clap_enable_icon = 1
+let g:clap_provider_grep_enable_icon = 1
+
+noremap <C-f> :Clap filer<CR>
+noremap <C-h> :Clap history<CR>
+noremap tT :Clap buffers<CR>
+noremap <leader>; :Clap hist:<CR>
+noremap <leader>: :Clap command<CR>
+autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
+autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
+
 
 
 "========================
@@ -347,7 +365,7 @@ vmap <silent> ts <Plug>TranslateWV
 "========================
 " dashboard
 "========================
-let g:dashboard_default_executive = 'fzf'
+let g:dashboard_default_executive = 'vim-clap'
 let g:dashboard_custom_header = [
     \'',
     \'',
@@ -380,11 +398,11 @@ function! EMPTY_BUFFER()
 endfunction
 
 function! FIND_HISTORY()
-    History
+    :Clap history
 endfunction
 
 function! FIND_FILES()
-    Files
+    :Clap filer
 endfunction
 
 

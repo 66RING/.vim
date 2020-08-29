@@ -38,7 +38,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/vim-easy-align' , { 'on': ['<Plug>(EasyAlign)']}
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' for sur line h h-> 'h h'
 Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-sn)']}
-Plug 'junegunn/fzf.vim', { 'on': ['Files', 'History', 'Buffers',  'Commands']}
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 " Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
 Plug 'voldikss/vim-translator', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV']}
 
