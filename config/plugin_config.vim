@@ -349,9 +349,12 @@ noremap <C-h> :Clap history<CR>
 noremap tT :Clap buffers<CR>
 noremap <leader>; :Clap hist:<CR>
 noremap <leader>: :Clap command<CR>
+" Unmap
+autocmd FileType clap_input inoremap <silent> <buffer> <C-j> <NOP>
+autocmd FileType clap_input inoremap <silent> <buffer> <C-k> <NOP>
 autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
 autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
-
+autocmd FileType clap_input inoremap <silent> <buffer> <Esc> <Esc>:<c-u>call clap#handler#exit()<CR>
 
 
 "========================

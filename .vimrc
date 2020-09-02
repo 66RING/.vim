@@ -24,6 +24,7 @@ source ~/.vim/shot_cut_source/md_snippits.vim
 source ~/.vim/shot_cut_source/coding_short_cut.vim
 
 
+command! Vimrc :vs $MYVIMRC
 map <Up> <Nop>
 map <Down> <Nop>
 map <Right> <Nop>
