@@ -10,8 +10,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'hardcoreplayers/dashboard-nvim'
 Plug '66RING/eleline.vim'
-" Plug 'mg979/vim-xtabline'
-Plug '66RING/vim-xtabline'
+Plug 'mg979/vim-xtabline'
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'

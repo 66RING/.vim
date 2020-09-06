@@ -284,23 +284,6 @@ let g:xtabline_settings.tabline_modes = ['buffers']
 let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.buffer_filtering = 0
 let g:xtabline_settings.tab_number_in_buffers_mode = 0
-let g:xtabline_settings.theme = "custom_theme"
-let g:xtabline_settings.custom_theme = {->{
-  \"XTSelect":      [ 187, 23,  '#61AFEF',   'NONE',   1 ],
-  \"XTSelectMod":   [ 174, 23,  '#ff0000',   'NONE',   1 ],
-  \"XTVisible":     [ 223, 233, '#6272a4',   'NONE',   0 ],
-  \"XTVisibleMod":  [ 174, 233, '#ff0000',   'NONE',   1 ],
-  \"XTHidden":      [ 174, 241, '#6272a4',   'NONE',   0 ],
-  \"XTHiddenMod":   [ 174, 241, '#DF8C8C',   'NONE',   0 ],
-  \"XTExtra":       [ 253, 126, '#6272a4',   'NONE',   1 ],
-  \"XTExtraMod":    [ 174, 126, '#DF8C8C',   'NONE',   1 ],
-  \"XTSpecial":     [ 239, 223, '#61AFEF',   'NONE',   1 ],
-  \"XTNumSel":      [ 239, 150, '#F2C38F',   'NONE',   0 ],
-  \"XTNum":         [ 223, 233, '#6272a4',   'NONE',   0 ],
-  \"XTCorner":      [ 223, 233, '#61AFEF',   'NONE',   0 ],
-  \"XTFill":        [ 248, 0,   '#6272a4',   'NONE',   0 ],
-  \}}
-
 "let g:xtabline_settings.last_open_first = 1
 nnoremap <LEADER>] :XTabNextBuffer<CR>
 nnoremap <LEADER>[ :XTabPrevBuffer<CR>
@@ -308,6 +291,30 @@ nnoremap *p :XTabPinBuffer<CR>
 nmap <BS> <Plug>(XT-Select-Buffer)
 nmap r<BS> :XTabCloseBuffer<CR>
 
+function CustomTheme()
+  return {
+  \"XTSelect":      [ 187, 23,  '#61AFEF',   'NONE',   1 ],
+  \"XTSelectMod":   [ 174, 23,  '#ff0000',   'NONE',   1 ],
+  \"XTVisible":     [ 223, 233, '#6272a4',   'NONE',   2 ],
+  \"XTVisibleMod":  [ 174, 233, '#ff0000',   'NONE',   1 ],
+  \"XTHidden":      [ 174, 241, '#6272a4',   'NONE',   2 ],
+  \"XTHiddenMod":   [ 174, 241, '#DF8C8C',   'NONE',   1 ],
+  \"XTExtra":       [ 253, 126, '#6272a4',   'NONE',   0 ],
+  \"XTExtraMod":    [ 174, 126, '#DF8C8C',   'NONE',   0 ],
+  \"XTSpecial":     [ 239, 223, '#61AFEF',   'NONE',   0 ],
+  \"XTNumSel":      [ 239, 150, '#F2C38F',   'NONE',   1 ],
+  \"XTNum":         [ 223, 233, '#6272a4',   'NONE',   0 ],
+  \"XTCorner":      [ 223, 233, '#61AFEF',   'NONE',   1 ],
+  \"XTFill":        [ 248, 0,   '#6272a4',   'NONE',   1 ],
+  \}
+endfunction
+
+augroup xtabline_custom
+    au!
+    au TabNew,SessionLoadPost,BufAdd * call xtabline#init#start()
+    au TabNew,SessionLoadPost,BufAdd * call xtabline#hi#generate('custom_theme', CustomTheme())
+    au TabNew,SessionLoadPost,BufAdd * exec "XTabTheme custom_theme"
+augroup END
 
 
 
