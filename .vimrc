@@ -34,9 +34,8 @@ xnoremap <Space>  <Nop>
 
 
 set enc=utf8
-set fileencodings=utf-8,gbk,utf-16le,cp1252,iso-8859-15,ucs-bom
+set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
 set termencoding=utf-8
-set encoding=utf-8
 " set colorcolumn=80
 
 set termguicolors
