@@ -14,12 +14,10 @@ silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
 let g:coc_global_extensions = [
     \ 'coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 
     \ 'coc-tsserver', 'coc-tslint-plugin',
-    \ 'coc-lists', 'coc-yank',
-    \ 'coc-gitignore', 'coc-git',
+    \ 'coc-lists', 'coc-yank', 'coc-git',
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
-    \ 'coc-explorer',
     \ 'coc-vetur'  , 'coc-snippets', 'coc-diagnostic', 
-    \ 'coc-style-helper', 'coc-vimlsp'
+    \ 'coc-style-helper'
     \ ]
 " npm i eslint eslint-plugin-vue -D in root workspace to use vetur
 
@@ -54,7 +52,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap tt :CocCommand explorer<CR>
 
 " Remap for format selected region
 xmap <C-s>  <Plug>(coc-format-selected)
@@ -285,11 +282,11 @@ let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.buffer_filtering = 0
 let g:xtabline_settings.tab_number_in_buffers_mode = 0
 "let g:xtabline_settings.last_open_first = 1
-nnoremap <LEADER>] :XTabNextBuffer<CR>
-nnoremap <LEADER>[ :XTabPrevBuffer<CR>
-nnoremap *p :XTabPinBuffer<CR>
-nmap <BS> <Plug>(XT-Select-Buffer)
-nmap r<BS> :XTabCloseBuffer<CR>
+noremap <LEADER>] :<C-u>XTabNextBuffer<CR>
+noremap <LEADER>[ :<C-u>XTabPrevBuffer<CR>
+noremap *p :<C-u>XTabPinBuffer<CR>
+map <BS> <Plug>(XT-Select-Buffer)
+noremap r<BS> :<C-u>XTabCloseBuffer<CR>
 
 function CustomTheme()
   return {
@@ -319,25 +316,31 @@ augroup END
 
 
 "========================
-" GitGutter
+" GitGutte
 "========================
-let g:gitgutter_signs = 0
-let g:gitgutter_map_keys = 0
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_preview_win_floating = 1
-" autocmd BufWritePost * GitGutter
-nnoremap <LEADER>gf :GitGutterFold<CR>
-nnoremap <LEADER>gh :GitGutterPreviewHunk<CR>
-nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
-nnoremap <LEADER>g= :GitGutterNextHunk<CR>
+" let g:gitgutter_signs = 0
+" let g:gitgutter_map_keys = 0
+" let g:gitgutter_override_sign_column_highlight = 0
+" let g:gitgutter_preview_win_floating = 1
+" " autocmd BufWritePost * GitGutter
+" nnoremap <LEADER>gf :GitGutterFold<CR>
+" nnoremap <LEADER>gh :GitGutterPreviewHunk<CR>
+" nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
+" nnoremap <LEADER>g= :GitGutterNextHunk<CR>
+
+"coc-git
+nnoremap <LEADER>gf :CocCommand git.foldUnchanged<CR>
+nmap <LEADER>gh <Plug>(coc-git-chunkinfo)
+nmap <LEADER>g- <Plug>(coc-git-prevchunk)
+nmap <LEADER>g= <Plug>(coc-git-nextchunk)
 
 
 "========================
 " Vista.vim
 "========================
 ":Vista [EXECUTIVE]: open vista window powered by EXECUTIVE
-noremap T :Vista!!<CR>
-noremap <LEADER>v :silent! Vista finder<CR>
+noremap T :<C-u>Vista!!<CR>
+noremap <LEADER>v :<C-u>silent! Vista finder<CR>
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_default_executive = 'ctags'
 let g:vista_echo_cursor_strategy = 'floating_win'
@@ -367,11 +370,11 @@ let g:clap_layout = { 'relative': 'editor' }
 let g:clap_enable_icon = 1
 let g:clap_provider_grep_enable_icon = 1
 
-noremap <C-f> :Clap filer<CR>
-noremap <C-h> :Clap history<CR>
-noremap tT :Clap buffers<CR>
-noremap <leader>; :Clap hist:<CR>
-noremap <leader>: :Clap command<CR>
+noremap <C-f> :<C-u>Clap filer %:p:h<CR>
+noremap <C-h> :<C-u>Clap history<CR>
+noremap tT :<C-u>Clap buffers<CR>
+noremap <leader>; :<C-u>Clap hist:<CR>
+noremap <leader>: :<C-u>Clap command<CR>
 " Unmap
 autocmd FileType clap_input inoremap <silent> <buffer> <C-j> <NOP>
 autocmd FileType clap_input inoremap <silent> <buffer> <C-k> <NOP>
@@ -395,9 +398,9 @@ let g:dashboard_default_executive = 'vim-clap'
 let g:dashboard_custom_header = [
     \'',
     \'',
-    \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢀⢀⠀⢀⣼⣶⠀⠀⢐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
-    \'⠀⠀⠀⠀⠀⠀⠀⠀⢀⢀⠀⠀⣀⢠⠰⢸⢀⣿⣿⣿⣿⣀⡒⠀⢠⣰⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
-    \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⢐⠈⠀⣠⠀⣰⣿⣟⣛⢛⣿⣿⣀⠀⣰⠀⠠⣰⢀⠀⢀⠀⠀⠀⠀⠀⠀ ',
+    \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢀⢀⠀⢀⣼⣆⠀⠀⢐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
+    \'⠀⠀⠀⠀⠀⠀⠀⠀⢀⢀⠀⠀⣀⢠⠰⢸⢀⣿⣿⣿⣷⣀⡒⠀⢠⣰⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
+    \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⢐⠈⠀⣠⠀⣰⣿⣟⣛⢛⣿⣿⣆⠀⣰⠀⠠⣰⢀⠀⢀⠀⠀⠀⠀⠀⠀ ',
     \'⠀⠀⠀⠀⠀⠀⢀⢴⠈⠈⠈⣤⠐⠈⣶⣿⠻⢻⢋⢹⠟⢻⣿⣶⠩⢒⣴⠀⠀⢀⢤⠈⠀⠀⠀⠀⠀ ',
     \'⠀⠀⠀⠀⠠⣰⢈⠀⢈⢶⢉⢀⢸⣾⣿⡿⠞⢺⢛⢺⠚⢾⢿⣿⣷⠘⢀⢩⢾⢀⠀⠐⣀⠐⠀⠀⠀ ',
     \'⠀⠀⢀⠠⣠⠐⢈⢸⢾⢠⢨⣸⣿⢿⣝⣼⠸⢀⢹⠊⠸⢊⣼⣹⢿⣿⣌⢐⢨⠽⡘⠀⢈⢀⢐⢀⠀ ',
@@ -416,8 +419,8 @@ let g:dashboard_custom_header = [
 
 let g:dashboard_custom_section={
   \ 'empty_buffer': [' Empty Buffer'],
-  \ 'find_history': ['ﭯ History'],
-  \ 'find_files': [' Find Files'],
+  \ 'find_history': ['ﭯ History     '],
+  \ 'find_files':   [' Find Files  '],
   \ }
 function! EMPTY_BUFFER()
     enew
@@ -453,6 +456,95 @@ function! s:load_db()
     endif
 endfunction
 let g:dbs = s:load_db()
+
+
+"========================
+" defx
+"========================
+function! s:defx_expand_or_drop() abort
+    if defx#is_directory()
+        return defx#do_action('open_or_close_tree')
+    endif
+    return defx#do_action('multi', ['drop', 'quit'])
+endfunction
+
+" nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
+nnoremap <silent> tt :Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
+
+autocmd FileType defx call s:defx_my_settings()
+
+function! s:defx_my_settings() abort
+    " motion
+    nnoremap <silent><buffer><expr> l               <sid>defx_expand_or_drop()
+    nnoremap <silent><buffer><expr> L               defx#do_action('open', 'botright vsplit')
+    nnoremap <silent><buffer><expr> j               defx#async_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> J               defx#do_action('close_tree')
+    nnoremap <silent><buffer><expr> k               line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> K               line('.') == line('$') ? 'gg' : '5j'
+    nnoremap <silent><buffer><expr> i               line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> I               line('.') == 1 ? 'G' : '5k'
+
+    nnoremap <silent><buffer><expr><nowait> s       defx#do_action('open', 'botright split')
+    nnoremap <silent><buffer><expr><nowait> *       defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr><nowait> v       defx#do_action('toggle_select_all')
+    " actions
+    " nnoremap <silent><buffer><expr><nowait> c  defx#do_action('copy')
+    " nnoremap <silent><buffer><expr><nowait> m  defx#do_action('move')
+    nnoremap <silent><buffer><expr> yy  defx#do_action('copy')
+    nnoremap <silent><buffer><expr> yp defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> pp  defx#do_action('paste')
+    nnoremap <silent><buffer><expr> C  defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
+    nnoremap <silent><buffer><expr> P  defx#do_action('preview')
+    nnoremap <silent><buffer><expr> md defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> mf defx#do_action('new_multiple_files')
+    nnoremap <silent><buffer><expr> dd defx#do_action('remove')
+    nnoremap <silent><buffer><expr> rn defx#do_action('rename')
+    nnoremap <silent><buffer><expr> X  defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> zh defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> q  defx#do_action('quit')
+    " sort and redraw
+    nnoremap <silent><buffer><expr> st    defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> <C-r> defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+    
+    " " jumps
+    " nnoremap <silent><buffer>  [g :<C-u>call <SID>jump_dirty(-1)<CR>
+    " nnoremap <silent><buffer>  ]g :<C-u>call <SID>jump_dirty(1)<CR>
+    nnoremap <silent><buffer><expr> gh      defx#async_action('cd')
+    nnoremap <silent><buffer><expr> gf      defx#async_action('cd', expand('~/.config'))
+    nnoremap <silent><buffer><expr> gd      defx#async_action('cd', expand('~/Documents'))
+    nnoremap <silent><buffer><expr> gs      defx#async_action('cd', expand('~/scripts'))
+    nnoremap <silent><buffer><expr> gv      defx#async_action('cd', expand('~/var'))
+    nnoremap <silent><buffer><expr> \       defx#async_action('cd', getcwd())
+    " nnoremap <silent><buffer><expr><nowait> & defx#async_action('cd', getcwd())
+endfunction
+
+call defx#custom#option('_', {
+  \ 'floating_preview': 1,
+  \ 'winwidth': 30,
+  \ 'split': 'vertical',
+  \ 'direction': 'topleft',
+  \ 'columns': 'mark:indent:git:icons:filename:type:size:time',
+  \ 'show_ignored_files': 0,
+  \ 'root_marker': '[in]: ',
+  \ })
+
+call defx#custom#column('git', {
+  \   'indicators': {
+  \     'Modified'  : '•',
+  \     'Staged'    : '✚',
+  \     'Untracked' : 'ᵁ',
+  \     'Renamed'   : '≫',
+  \     'Unmerged'  : '≠',
+  \     'Ignored'   : 'ⁱ',
+  \     'Deleted'   : '✖',
+  \     'Unknown'   : '⁇'
+  \   }
+  \ })
+
+let g:defx_icons_mark_icon = ''
+let g:defx_icons_parent_icon = ""
+call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
 
 
 
