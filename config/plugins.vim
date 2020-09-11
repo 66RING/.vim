@@ -5,12 +5,15 @@ call plug#begin('~/.vim/plugged')
 
 " completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'vn-ki/coc-clap'
 
 " dress up
 Plug 'ryanoasis/vim-devicons'
-Plug 'hardcoreplayers/dashboard-nvim'
+Plug 'glepnir/dashboard-nvim'
 Plug '66RING/eleline.vim'
 Plug 'mg979/vim-xtabline'
+" Plug 'Konfekt/FastFold'
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 " Genreal Highlighter
 Plug 'jaxbot/semantic-highlight.vim'
@@ -39,6 +42,8 @@ Plug 'junegunn/vim-easy-align' , { 'on': ['<Plug>(EasyAlign)']}
 Plug 'tpope/vim-surround' " type ysiw' i sur in word '' or type cs'` to change 'word' to `word` or 'ds' del sur or 'yss'' for sur line h h-> 'h h'
 Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-sn)']}
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons'
 " Plug 'junegunn/goyo.vim'  " goyo to turn on goyo! to turn off, g:goyo_  to config
 Plug 'voldikss/vim-translator', { 'on': ['<Plug>TranslateW', '<Plug>TranslateWV']}
 
