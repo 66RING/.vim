@@ -157,7 +157,7 @@
   "javascript.suggest.names": true,
   "javascript.suggestionActions.enabled": true,
   "json.format.enable": true,
-  "snippets.snipmate.author": "66RING",
+  "snippets.snipmate.author": "66RING@github.com",
   "snippets.ultisnips.directories": [
     "$HOME/.config/nvim/config/Ultisnips/",
     "$HOME/.config/nvim/plugged/vim-snippets/UltiSnips/"

@@ -1,4 +1,4 @@
-"
+
 "   _    ________  _______  ______
 "  | |  / /  _/  |/  / __ \/ ____/
 "  | | / // // /|_/ / /_/ / /     
@@ -24,13 +24,13 @@ source ~/.vim/shot_cut_source/md_snippits.vim
 source ~/.vim/shot_cut_source/coding_short_cut.vim
 
 
-command! Vimrc :vs $MYVIMRC
+command! Vimrc :e $MYVIMRC
+map s <nop>
 map <Up> <Nop>
 map <Down> <Nop>
 map <Right> <Nop>
 map <Left> <Nop>
-nnoremap <Space>  <Nop>
-xnoremap <Space>  <Nop>
+map <Space>  <Nop>
 
 
 set enc=utf8
@@ -96,11 +96,11 @@ noremap <C-l> $
 "========================
 " split window
 "========================
-map sl :set splitright<CR>:vsplit<CR>
-map sj :set nosplitright<CR>:vsplit<CR>
-map si :set nosplitbelow<CR>:split<CR>
-map sk :set splitbelow<CR>:split<CR>
-map st :set splitbelow<CR>:sp<CR>:term<CR>
+noremap sl :<C-u>set splitright<CR>:vsplit<CR>
+noremap sj :<C-u>set nosplitright<CR>:vsplit<CR>
+noremap si :<C-u>set nosplitbelow<CR>:split<CR>
+noremap sk :<C-u>set splitbelow<CR>:split<CR>
+noremap st :<C-u>set splitbelow<CR>:sp<CR>:term<CR>
 "=== split screen movement===
 noremap <LEADER>w <C-w>w
 noremap <LEADER>i <C-w>k
@@ -108,19 +108,18 @@ noremap <LEADER>k <C-w>j
 noremap <LEADER>j <C-w>h
 noremap <LEADER>l <C-w>l
 "=== split operation===
-map s<up> :res-5<CR>
-map s<down> :res+5<CR>
-map s<left> :vertical resize+5<CR>
-map s<right> :vertical resize-5<CR>
+noremap s<up>    :<C-u>res-5<CR>
+noremap s<down>  :<C-u>res+5<CR>
+noremap s<left>  :<C-u>vertical resize+5<CR>
+noremap s<right> :<C-u>vertical resize-5<CR>
 
 
 "========================
 " file operation
 "========================
-map S :w<CR>
-map s <nop>
-map Q :q<CR>
-map R :source $MYVIMRC<CR>
+noremap S :<C-u>w<CR>
+noremap Q :<C-u>q<CR>
+noremap R :<C-u>source $MYVIMRC<CR>
 
 
 " Basic file system commands
@@ -161,11 +160,11 @@ autocmd InsertLeave * call Fcitx2en()
 " something Useful
 "========================
 " open a terminal window
-noremap <LEADER>/ :terminal<CR>
+noremap <LEADER>/ :<C-u>terminal<CR>
 " exit terminal mode
-tnoremap <LEADER><Esc> <C-\><C-n>
+" tnoremap <LEADER><Esc> <C-\><C-n>
 " to next <++>
-map <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
+nnoremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -184,7 +183,7 @@ noremap tx :r !figlet
 "========================
 " find doc
 "========================
-nmap <leader>d :call FindDoc()<CR>
+nnoremap <leader>d :<C-u>call FindDoc()<CR>
 func! FindDoc()
     if &filetype == 'python' 
 		set nosplitbelow
@@ -205,7 +204,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 "========================
 " quick run code
 "========================
-map <leader>R :call RunCode()<CR>
+nnoremap <leader>R :<C-u>call RunCode()<CR>
 func! RunCode()
     exec "w" 
     if &filetype == 'c' 
@@ -250,10 +249,12 @@ func! RunCode()
 		set splitbelow
 		:sp
 		:term lua %
+    else
+        echo "nothing to do"
     endif                                                                              
 endfunc
 
-map <leader>B :call BuildCode()<CR>
+nnoremap <leader>B :<C-u>call BuildCode()<CR>
 func! BuildCode()
     exec "w" 
     if &filetype == 'c' 
@@ -276,11 +277,13 @@ func! BuildCode()
 		set splitbelow
 		:sp
         exec "term processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
+    else
+        echo "nothing to do"
     endif                                                                              
 endfunc
 
 " debugging with gdb
-map <leader>D :call DebugWithGDB()<CR>
+nnoremap <leader>D :<C-u>call DebugWithGDB()<CR>
 func! DebugWithGDB()
     exec "w" 
     if &filetype == 'c' 
@@ -291,6 +294,8 @@ func! DebugWithGDB()
 		set splitbelow
 		:sp
         :term gdb %<
+    else
+        echo "nothing to do"
     endif                                                                              
 endfunc
 
@@ -300,6 +305,6 @@ endfunc
 "========================
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-
-execute 'source' fnamemodify('$HOME/.vim/config/plugins.vim', '')
+execute 'source' fnamemodify('$HOME/.vim/config/dein_plugins.vim', '')
+" " execute 'source' fnamemodify('$HOME/.vim/config/plugins.vim', '')
 execute 'source' fnamemodify('$HOME/.vim/config/plugin_config.vim', '')
