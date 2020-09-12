@@ -7,12 +7,16 @@
 "                                 
 " Author: 66RING@github.com
 
-let g:custom_vim_status_icon = {"n": "😏 ","V":"😏 ","v":"😏 ","\<C-v>": "😏 ","i":"😈 ","R":"🧐 ","s":"🧐 ","t":"🤨 ","c":"😈 ","!":"SE"}
-let g:nmode_color='#61AFEF'
-let g:imode_color='#d7ffd7'
-let g:vmode_color='#6272a4'
-let g:tmode_color='#99cc66'
-let g:cmode_color='#ffff66'
+
+"========================
+" theme options
+"========================
+" syntax on
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+" autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=black guibg=#666666
+" autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
+" let g:onedark_terminal_italics = 1
+call theme#theme_init("dark", "oceanic_material")
 
 
 " netrw
@@ -39,15 +43,6 @@ set termencoding=utf-8
 " set colorcolumn=80
 
 set termguicolors
-set background=dark
-colorscheme oceanic_material
-" let g:onedark_terminal_italics = 1
-" disable background color
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-" autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=black guibg=#666666
-" autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
-
-syntax on
 set number
 set numberwidth=1
 set relativenumber
@@ -70,7 +65,7 @@ set foldlevel=99
 autocmd FileType json,vue,javascript,css setlocal shiftwidth=2
 let mapleader=" "
 
-set hidden
+" set hidden
 set updatetime=100
 set shortmess+=c
 
@@ -299,12 +294,12 @@ func! DebugWithGDB()
     endif                                                                              
 endfunc
 
-
-"========================
-" setting for neovim
-"========================
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+
+" dein.vim
 execute 'source' fnamemodify('$HOME/.vim/config/dein_plugins.vim', '')
-" " execute 'source' fnamemodify('$HOME/.vim/config/plugins.vim', '')
+" execute 'source' fnamemodify('$HOME/.vim/config/plugins.vim', '')
+
 execute 'source' fnamemodify('$HOME/.vim/config/plugin_config.vim', '')
+
