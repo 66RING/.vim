@@ -474,7 +474,6 @@ let g:dbs = s:load_db()
 "========================
 nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
 
-" function! DefxOpt() abort
     function! s:defx_expand_or_drop() abort
         if defx#is_directory()
             return defx#do_action('open_or_close_tree')
@@ -533,6 +532,7 @@ nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpage
     let g:defx_icons_mark_icon = ''
     let g:defx_icons_parent_icon = ""
 
+" function! DefxOpt() abort
     call defx#custom#option('_', {
       \ 'floating_preview': 1,
       \ 'winwidth': 30,

@@ -9,13 +9,14 @@
 
 
 "========================
-" theme options
+" theme settings
 "========================
 " syntax on
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+" autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 " autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=black guibg=#666666
 " autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
 " let g:onedark_terminal_italics = 1
+let g:oceanic_material_transparent_background = 1
 call theme#theme_init("dark", "oceanic_material")
 
 
@@ -40,7 +41,7 @@ map <Space>  <Nop>
 set enc=utf8
 set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
 set termencoding=utf-8
-" set colorcolumn=80
+set colorcolumn=80
 
 set termguicolors
 set number
@@ -68,6 +69,7 @@ let mapleader=" "
 " set hidden
 set updatetime=100
 set shortmess+=c
+set display=lastline
 
 noremap h i
 noremap H I
