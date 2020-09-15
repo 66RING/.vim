@@ -12,3 +12,4 @@ tmp/
 
 autoload/plug.vim.old
 autoload/tablemode.vim
+dein
