@@ -1,9 +1,9 @@
-let $CACHE_PATH = expand("$HOME") . '/.cache/nvim'
+let $CACHE_PATH = expand("$HOME") . '/.config/nvim'
 
 function! s:dein_init()
 
     " dein global options
-    " let g:dein#auto_recache = 1
+    let g:dein#auto_recache = 1
     let g:dein#install_max_processes = 12
     " let g:dein#install_progress_type = 'title'
     " let g:dein#enable_notification = 1
@@ -48,11 +48,15 @@ function! s:dein_init()
         
 
         " Genreal Highlighter
-        call dein#add('jaxbot/semantic-highlight.vim')
+        call dein#add('jaxbot/semantic-highlight.vim', {
+                    \'on_ft': ['python', 'java', 'javascript', 'typescript', 'c', 'cpp'], 
+                    \'hook_source': 'autocmd BufEnter,BufNew,BufWritePre,FileWritePre *.py,*.ts,*.js,*.cpp,*.java :SemanticHighlight'
+                    \})
         
 
         " markdown
-        call dein#add('iamcco/markdown-preview.nvim', { 'on_ft': 'markdown', 'on_cmd': 'MarkdownPreview',  'hook_post_update': 'cd app & yarn install'  })
+        call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+					\ 'dein-options-hook_post_update': 'sh -c "cd app && yarn install"' })
         call dein#add('dhruvasagar/vim-table-mode', { 'on_ft': 'markdown' })
         call dein#add('dkarter/bullets.vim', { 'on_ft': 'markdown' })
            
@@ -72,11 +76,41 @@ function! s:dein_init()
         call dein#add('easymotion/vim-easymotion', { 'on_map': {'n': '<Plug>'}})
         call dein#add('liuchengxu/vim-clap', { 
                     \'hook_post_update': ':Clap install-binary' ,
-                    \'on_map': { 'n': '<Plug>' },
+                    \'on_cmd': 'Clap',
                     \})
 
-        call dein#add('Shougo/defx.nvim')
-        call dein#add('kristijanhusak/defx-icons')
+        call dein#add('Shougo/defx.nvim', {
+                    \'on_cmd': 'Defx', 
+                    \'hook_post_source':"
+                          \call defx#custom#option('_', {
+                          \    'floating_preview': 1,
+                          \    'winwidth': 30,
+                          \    'split': 'vertical',
+                          \    'direction': 'topleft',
+                          \    'columns': 'mark:indent:git:icons:filename:type:size:time',
+                          \    'show_ignored_files': 0,
+                          \    'root_marker': '[in]: ',
+                          \})
+                          \\n
+                          \call defx#custom#column('git', {
+                          \   'indicators': {
+                          \     'Modified'  : '•',
+                          \     'Staged'    : '✚',
+                          \     'Untracked' : 'ᵁ',
+                          \     'Renamed'   : '≫',
+                          \     'Unmerged'  : '≠',
+                          \     'Ignored'   : 'ⁱ',
+                          \     'Deleted'   : '✖',
+                          \     'Unknown'   : '⁇'
+                          \   }
+                          \ })
+                          \\n
+                          \call defx#custom#column('mark', { 
+                          \     'readonly_icon': '',
+                          \     'selected_icon': '' 
+                          \})"
+                    \})
+        call dein#add('kristijanhusak/defx-icons', {'on_source':'defx.nvim'})
 
         call dein#add('voldikss/vim-translator', { 'on_map': {'xn': '<Plug>TranslateW'}})
         
@@ -114,12 +148,12 @@ function! s:dein_init()
         call dein#add('MaxMEllon/vim-jsx-pretty', { 'on_ft': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] })
         call dein#add('jelera/vim-javascript-syntax', { 'on_ft': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] })
         "Plug 'jaxbot/browserlink.vim'
-        call dein#add('alvan/vim-closetag')
+        call dein#add('alvan/vim-closetag', { 'on_ft': ['html', 'js', 'jsx', 'vue']})
         call dein#add('AndrewRadev/tagalong.vim')
         
         " Python
         call dein#add('Vimjas/vim-python-pep8-indent', { 'on_ft' :['python', 'vim-plug'] })
-        call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft' :['python', 'vim-plug'] })
+        " call dein#add('numirias/semshi', { 'hook_post_update': ':UpdateRemotePlugins', 'on_ft' :'python', 'hook_post_source': ':SemshiHighlight'})
         " Plug 'tweekmonster/braceless.vim'
         
         " Processing
@@ -144,9 +178,4 @@ function! s:dein_init()
 endfunction
 
 
-function! s:main()
-    call s:dein_init()
-
-endfunction
-
-call s:main()
+call s:dein_init()

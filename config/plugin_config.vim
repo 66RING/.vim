@@ -176,7 +176,7 @@ let g:go_term_mode = 'split '
 let g:go_echo_go_info = 0
 
 au FileType go nmap <LEADER>d <Plug>(go-doc)
-au FileType go nmap <F6>      <Plug>(go-build)
+au FileType go nmap <leader>B <Plug>(go-build)
 au FileType go nnoremap <LEADER>rn :GoRename<CR>
 autocmd BufWritePre,FileWritePre *.go  exe "GoImports"
 
@@ -433,6 +433,9 @@ let g:dashboard_custom_section={
   \ 'find_history': ['ﭯ History     '],
   \ 'find_files':   [' Find Files  '],
   \ }
+
+autocmd FileType dashboard noremap <silent><buffer> e :enew<CR>
+
 function! EMPTY_BUFFER()
     enew
 endfunction
@@ -474,6 +477,7 @@ let g:dbs = s:load_db()
 "========================
 nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
 
+" function! DefxOpt() abort
     function! s:defx_expand_or_drop() abort
         if defx#is_directory()
             return defx#do_action('open_or_close_tree')
@@ -481,7 +485,7 @@ nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpage
         return defx#do_action('multi', ['drop', 'quit'])
     endfunction
 
-    autocmd FileType defx call s:defx_my_settings()
+    autocmd FileType defx call <SID>defx_my_settings()
 
     function! s:defx_my_settings() abort
         " motion
@@ -532,30 +536,29 @@ nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpage
     let g:defx_icons_mark_icon = ''
     let g:defx_icons_parent_icon = ""
 
-" function! DefxOpt() abort
-    call defx#custom#option('_', {
-      \ 'floating_preview': 1,
-      \ 'winwidth': 30,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'columns': 'mark:indent:git:icons:filename:type:size:time',
-      \ 'show_ignored_files': 0,
-      \ 'root_marker': '[in]: ',
-      \ })
+    " call defx#custom#option('_', {
+    "   \ 'floating_preview': 1,
+    "   \ 'winwidth': 30,
+    "   \ 'split': 'vertical',
+    "   \ 'direction': 'topleft',
+    "   \ 'columns': 'mark:indent:git:icons:filename:type:size:time',
+    "   \ 'show_ignored_files': 0,
+    "   \ 'root_marker': '[in]: ',
+    "   \ })
 
-    call defx#custom#column('git', {
-      \   'indicators': {
-      \     'Modified'  : '•',
-      \     'Staged'    : '✚',
-      \     'Untracked' : 'ᵁ',
-      \     'Renamed'   : '≫',
-      \     'Unmerged'  : '≠',
-      \     'Ignored'   : 'ⁱ',
-      \     'Deleted'   : '✖',
-      \     'Unknown'   : '⁇'
-      \   }
-      \ })
+    " call defx#custom#column('git', {
+    "   \   'indicators': {
+    "   \     'Modified'  : '•',
+    "   \     'Staged'    : '✚',
+    "   \     'Untracked' : 'ᵁ',
+    "   \     'Renamed'   : '≫',
+    "   \     'Unmerged'  : '≠',
+    "   \     'Ignored'   : 'ⁱ',
+    "   \     'Deleted'   : '✖',
+    "   \     'Unknown'   : '⁇'
+    "   \   }
+    "   \ })
 
-    call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
+    " call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
 " endfunction
 

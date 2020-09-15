@@ -15,9 +15,11 @@
 " autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
 " autocmd ColorScheme * highlight! Cursorline cterm=bold ctermfg=black guibg=#666666
 " autocmd ColorScheme * highlight! Colorcolumn cterm=bold guibg=#666666
+" set background=dark " dulp in oceanic_material
 " let g:onedark_terminal_italics = 1
 let g:oceanic_material_transparent_background = 1
-call theme#theme_init("dark", "oceanic_material")
+let g:colors_name="oceanic_material"
+" call theme#theme_init("dark", "oceanic_material")
 
 
 " netrw
@@ -247,7 +249,7 @@ func! RunCode()
 		:sp
 		:term lua %
     else
-        echo "nothing to do"
+        echo "nothing to run"
     endif                                                                              
 endfunc
 
@@ -275,7 +277,7 @@ func! BuildCode()
 		:sp
         exec "term processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
     else
-        echo "nothing to do"
+        echo "nothing to build"
     endif                                                                              
 endfunc
 
@@ -292,16 +294,16 @@ func! DebugWithGDB()
 		:sp
         :term gdb %<
     else
-        echo "nothing to do"
+        echo "nothing to debug"
     endif                                                                              
 endfunc
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 
+execute 'source' fnamemodify('$HOME/.vim/config/plugin_config.vim', '')
 " dein.vim
 execute 'source' fnamemodify('$HOME/.vim/config/dein_plugins.vim', '')
 " execute 'source' fnamemodify('$HOME/.vim/config/plugins.vim', '')
 
-execute 'source' fnamemodify('$HOME/.vim/config/plugin_config.vim', '')
 
