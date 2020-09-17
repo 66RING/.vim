@@ -3,6 +3,16 @@ snippet stdio "include stdio.h"
 ${0}
 endsnippet
 
+snippet treenode "TreeNode"
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+${0}
+endsnippet
+
 snippet stdc "wirte basic format"
 #include<bits/stdc++.h>
 

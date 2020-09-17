@@ -299,7 +299,7 @@ noremap *p :<C-u>XTabPinBuffer<CR>
 map <BS> <Plug>(XT-Select-Buffer)
 noremap r<BS> :<C-u>XTabCloseBuffer<CR>
 
-function CustomTheme()
+function s:xtabline_custom()
   return {
   \"XTSelect":      [ 187, 23,  '#61AFEF',   'NONE',   1 ],
   \"XTSelectMod":   [ 174, 23,  '#ff0000',   'NONE',   1 ],
@@ -320,7 +320,7 @@ endfunction
 augroup xtabline_custom
     au!
     au TabNew,SessionLoadPost,BufAdd * call xtabline#init#start()
-    au TabNew,SessionLoadPost,BufAdd * call xtabline#hi#generate('custom_theme', CustomTheme())
+    au TabNew,SessionLoadPost,BufAdd * call xtabline#hi#generate('custom_theme', <SID>xtabline_custom())
     au TabNew,SessionLoadPost,BufAdd * exec "XTabTheme custom_theme"
 augroup END
 

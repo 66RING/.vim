@@ -44,6 +44,7 @@ function! s:dein_init()
         call dein#add('ryanoasis/vim-devicons')
         call dein#add('glepnir/dashboard-nvim')
         call dein#add('66RING/eleline.vim')
+        " call dein#add('glepnir/spaceline.vim')
         call dein#add('mg979/vim-xtabline')
         
 
