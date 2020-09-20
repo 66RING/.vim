@@ -3,7 +3,7 @@ let $CACHE_PATH = expand("$HOME") . '/.config/nvim'
 function! s:dein_init()
 
     " dein global options
-    let g:dein#auto_recache = 1
+    " let g:dein#auto_recache = 1
     let g:dein#install_max_processes = 12
     " let g:dein#install_progress_type = 'title'
     " let g:dein#enable_notification = 1

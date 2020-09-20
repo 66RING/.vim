@@ -62,13 +62,13 @@ set tabstop=4
 set softtabstop=4   
 set shiftwidth=4    
 set expandtab 
-set lazyredraw
+" set lazyredraw
 set foldmethod=indent
 set foldlevel=99
-autocmd FileType json,vue,javascript,css setlocal shiftwidth=2
+autocmd FileType json,vue,javascript,css,lua.sh setlocal shiftwidth=2
 let mapleader=" "
 
-" set hidden
+set hidden
 set updatetime=100
 set shortmess+=c
 set display=lastline

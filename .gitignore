@@ -13,3 +13,10 @@ tmp/
 autoload/plug.vim.old
 autoload/tablemode.vim
 dein
+
+autoload/charblob.vim
+lua/charblob.lua
+lua/test.lua
+plugin/charblob.vim
+lua/event.lua
+lua/global.lua
