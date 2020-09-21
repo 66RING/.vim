@@ -90,6 +90,7 @@ noremap P "+p
 noremap m J  
 noremap <C-j> 0
 noremap <C-l> $
+noremap <LEADER><CR> :nohlsearch<CR>
 
 
 "========================
