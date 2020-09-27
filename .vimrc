@@ -57,7 +57,7 @@ exec "nohlsearch"
 set incsearch
 set ignorecase
 set smartcase
-set scrolloff=15 
+set scrolloff=10 
 set tabstop=4
 set softtabstop=4   
 set shiftwidth=4    
@@ -65,7 +65,7 @@ set expandtab
 " set lazyredraw
 set foldmethod=indent
 set foldlevel=99
-autocmd FileType json,vue,javascript,css,lua.sh setlocal shiftwidth=2
+autocmd FileType json,vue,javascript,css,lua.sh,vim setlocal shiftwidth=2
 let mapleader=" "
 
 set hidden
@@ -88,6 +88,7 @@ nnoremap yY :%y+<CR>
 noremap P "+p
 " m for join
 noremap m J  
+noremap <silent> M :exec ":mark "nr2char(getchar())<CR>
 noremap <C-j> 0
 noremap <C-l> $
 noremap <LEADER><CR> :nohlsearch<CR>
@@ -198,7 +199,7 @@ endfunc
 "========================
 " last position
 "========================
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif                                                        
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
 "========================

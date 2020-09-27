@@ -51,7 +51,7 @@ function! s:dein_init()
         " Genreal Highlighter
         call dein#add('jaxbot/semantic-highlight.vim', {
                     \'on_ft': ['python', 'java', 'javascript', 'typescript', 'c', 'cpp'], 
-                    \'hook_source': 'autocmd BufEnter,BufNew,BufWritePre,FileWritePre *.py,*.ts,*.js,*.cpp,*.java :SemanticHighlight'
+                    \'hook_source': 'autocmd BufEnter,BufNew,BufWritePre,FileWritePre *.py,*.ts,*.js,*.cpp,*.c,*.java :SemanticHighlight'
                     \})
         
 
