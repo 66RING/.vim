@@ -11,6 +11,7 @@
 "========================
 " fix the most annoying bug that coc has
 silent! au BufEnter,BufRead,BufNewFile * silent! unmap if
+let g:coc_disable_transparent_cursor = 1
 let g:coc_global_extensions = [
     \ 'coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 
     \ 'coc-tsserver', 'coc-tslint-plugin',
@@ -293,7 +294,7 @@ let g:xtabline_settings.tabline_modes = ['buffers']
 let g:xtabline_settings.enable_mappings = 0
 let g:xtabline_settings.buffer_filtering = 0
 let g:xtabline_settings.tab_number_in_buffers_mode = 0
-"let g:xtabline_settings.last_open_first = 1
+let g:xtabline_settings.last_open_first = 1
 noremap <LEADER>] :<C-u>XTabNextBuffer<CR>
 noremap <LEADER>[ :<C-u>XTabPrevBuffer<CR>
 noremap *p :<C-u>XTabPinBuffer<CR>
@@ -476,6 +477,7 @@ let g:dbs = s:load_db()
 "========================
 " defx
 "========================
+" use / to quick go this buffer dir
 nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
 
 " function! DefxOpt() abort

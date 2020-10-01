@@ -8,6 +8,7 @@ inoremap ,( ()<++><Esc>F)i
 inoremap ,[ []<++><Esc>F]i
 inoremap ," ""<++><Esc>F"i
 inoremap ,' ''<++><Esc>F'i
+inoremap ,` ``<++><Esc>F`i
 inoremap ,< <><++><Esc>F>i
 
 " If necessary to specify

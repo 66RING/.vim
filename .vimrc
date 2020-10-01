@@ -164,6 +164,7 @@ autocmd InsertLeave * call <SID>fcitx2en()
 noremap <LEADER>/ :<C-u>terminal<CR>
 " exit terminal mode
 " tnoremap <LEADER><Esc> <C-\><C-n>
+tnoremap <C-n> <C-\><C-n>
 " to next <++>
 nnoremap <LEADER><LEADER> <Esc>/<++><CR>:nohlsearch<CR>c4l
 
