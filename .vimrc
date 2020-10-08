@@ -65,7 +65,7 @@ set expandtab
 " set lazyredraw
 set foldmethod=indent
 set foldlevel=99
-autocmd FileType json,vue,javascript,css,lua.sh,vim setlocal shiftwidth=2
+autocmd FileType json,vue,javascript,css,lua,sh,vim setlocal shiftwidth=2
 let mapleader=" "
 
 set hidden
@@ -193,6 +193,9 @@ func! FindDoc()
         :exec "term python -c \"help('".expand("<cword>")."')\" | cat"
     elseif &filetype == 'vim'
         :exec "h ". expand("<cword>")
+    else
+        " default
+        :exec "h ". expand("<cword>")
     endif                                                                              
 endfunc
 
@@ -279,6 +282,10 @@ func! BuildCode()
 		set splitbelow
 		:sp
         exec "term processing-java --sketch='".trim(system('pwd'))."' --output='".trim(system('pwd'))."/bin' --force --build"
+    elseif &filetype == 'lua'
+		set splitbelow
+		:sp
+		:term luac %
     else
         echo "nothing to build"
     endif                                                                              

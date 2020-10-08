@@ -44,6 +44,7 @@ function! s:dein_init()
         call dein#add('ryanoasis/vim-devicons')
         call dein#add('glepnir/dashboard-nvim')
         call dein#add('66RING/eleline.vim')
+        call dein#add('66RING/mark-nvim')
         " call dein#add('glepnir/spaceline.vim')
         call dein#add('mg979/vim-xtabline')
         
@@ -117,6 +118,18 @@ function! s:dein_init()
         
         " taglist
         call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!']})
+        call dein#add('junegunn/vim-peekaboo')
+
+        " indentLine
+        call dein#add('Yggdroot/indentLine', { 
+              \ 'on_event': 'BufReadPre', 
+              \ 'hook_source': "
+              \ let g:indentLine_enabled = 1 \n
+              \ let g:indentLine_char='¦' \n
+              \ let g:indentLine_fileTypeExclude = ['defx', 'denite','startify','dbui','vista_kind','vista','coc-explorer','dashboard','chadtree', 'markdown'] \n
+              \ let g:indentLine_concealcursor = 'inc' \n
+              \ let g:indentLine_showFirstIndentLevel =1 \n
+              \ "})
         
         " search selected
         call dein#add('bronson/vim-visual-star-search')
