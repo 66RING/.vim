@@ -89,6 +89,7 @@ noremap P "+p
 " m for join
 noremap m J  
 noremap <silent> M :exec ":mark "nr2char(getchar())<CR>
+nmap ' <Plug>(bookmarks_nvim)
 noremap <C-j> 0
 noremap <C-l> $
 noremap <LEADER><CR> :nohlsearch<CR>

@@ -15,8 +15,5 @@ autoload/tablemode.vim
 dein
 
 autoload/charblob.vim
-lua/charblob.lua
-lua/test.lua
+lua
 plugin/charblob.vim
-lua/event.lua
-lua/global.lua

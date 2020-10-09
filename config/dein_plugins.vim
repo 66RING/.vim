@@ -44,7 +44,7 @@ function! s:dein_init()
         call dein#add('ryanoasis/vim-devicons')
         call dein#add('glepnir/dashboard-nvim')
         call dein#add('66RING/eleline.vim')
-        call dein#add('66RING/mark-nvim')
+        call dein#add('66RING/bookmarks-nvim')
         " call dein#add('glepnir/spaceline.vim')
         call dein#add('mg979/vim-xtabline')
         
@@ -118,7 +118,7 @@ function! s:dein_init()
         
         " taglist
         call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!']})
-        call dein#add('junegunn/vim-peekaboo')
+        " call dein#add('junegunn/vim-peekaboo')
 
         " indentLine
         call dein#add('Yggdroot/indentLine', { 
