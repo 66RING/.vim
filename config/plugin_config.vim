@@ -49,10 +49,10 @@ autocmd FileType markdown let b:coc_suggest_disable = 1
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :<C-u>call autoload#smart_split("normal \<Plug>(coc-definition)")<CR>
+nmap <silent> gy :<C-u>call autoload#smart_split("normal \<Plug>(coc-type-definition)")<CR>
+nmap <silent> gi :<C-u>call autoload#smart_split("normal \<Plug>(coc-implementation)")<CR>
+nmap <silent> gr :<C-u>call autoload#smart_split("normal \<Plug>(coc-references)")<CR>
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
