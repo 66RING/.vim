@@ -3,7 +3,7 @@ let $CACHE_PATH = expand("$HOME") . '/.config/nvim'
 function! s:dein_init()
 
     " dein global options
-    " let g:dein#auto_recache = 1
+    let g:dein#auto_recache = 1
     let g:dein#install_max_processes = 12
     " let g:dein#install_progress_type = 'title'
     " let g:dein#enable_notification = 1
@@ -50,10 +50,10 @@ function! s:dein_init()
         
 
         " Genreal Highlighter
-        call dein#add('jaxbot/semantic-highlight.vim', {
-                    \'on_ft': ['python', 'java', 'javascript', 'typescript', 'c', 'cpp'], 
-                    \'hook_source': 'autocmd BufEnter,BufNew,BufWritePre,FileWritePre *.py,*.ts,*.js,*.cpp,*.c,*.java :SemanticHighlight'
-                    \})
+        " call dein#add('jaxbot/semantic-highlight.vim', {
+        "             \'on_ft': ['python', 'java', 'javascript', 'typescript', 'c', 'cpp'], 
+        "             \'hook_source': 'autocmd BufEnter,BufNew,BufWritePre,FileWritePre *.py,*.ts,*.js,*.cpp,*.c,*.java :SemanticHighlight'
+        "             \})
         
 
         " markdown
@@ -69,7 +69,7 @@ function! s:dein_init()
         
         
         " git
-        " call dein#add('airblade/vim-gitgutter')
+        call dein#add('airblade/vim-gitgutter')
         
         
         " something useful

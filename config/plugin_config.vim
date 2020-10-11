@@ -15,7 +15,7 @@ let g:coc_disable_transparent_cursor = 1
 let g:coc_global_extensions = [
     \ 'coc-python', 'coc-java', 'coc-html', 'coc-json', 'coc-css', 
     \ 'coc-tsserver', 'coc-tslint-plugin',
-    \ 'coc-lists', 'coc-yank', 'coc-git',
+    \ 'coc-lists', 'coc-yank',
     \ 'coc-vimlsp', 'coc-highlight', 'coc-tailwindcss',
     \ 'coc-snippets', 'coc-diagnostic', 
     \ 'coc-style-helper', 'coc-yaml', 'coc-sql',
@@ -332,21 +332,15 @@ augroup END
 "========================
 " GitGutte
 "========================
-" let g:gitgutter_signs = 0
-" let g:gitgutter_map_keys = 0
-" let g:gitgutter_override_sign_column_highlight = 0
-" let g:gitgutter_preview_win_floating = 1
-" " autocmd BufWritePost * GitGutter
-" nnoremap <LEADER>gf :GitGutterFold<CR>
-" nnoremap <LEADER>gh :GitGutterPreviewHunk<CR>
-" nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
-" nnoremap <LEADER>g= :GitGutterNextHunk<CR>
-
-"coc-git
-nnoremap <LEADER>gf :CocCommand git.foldUnchanged<CR>
-nmap <LEADER>gh <Plug>(coc-git-chunkinfo)
-nmap <LEADER>g- <Plug>(coc-git-prevchunk)
-nmap <LEADER>g= <Plug>(coc-git-nextchunk)
+let g:gitgutter_signs = 1
+let g:gitgutter_map_keys = 0
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_preview_win_floating = 1
+" autocmd BufWritePost * GitGutter
+nnoremap <LEADER>gf :GitGutterFold<CR>
+nnoremap <LEADER>gh :GitGutterPreviewHunk<CR>
+nnoremap <LEADER>g- :GitGutterPrevHunk<CR>
+nnoremap <LEADER>g= :GitGutterNextHunk<CR>
 
 
 "========================
@@ -516,7 +510,7 @@ nnoremap <silent> tt :cd %:p:h<CR>:Defx -resume -toggle -buffer-name=tab`tabpage
         nnoremap <silent><buffer><expr> P  defx#do_action('preview')
         nnoremap <silent><buffer><expr> md defx#do_action('new_directory')
         nnoremap <silent><buffer><expr> mf defx#do_action('new_multiple_files')
-        nnoremap <silent><buffer><expr> Dd defx#do_action('remove')
+        nnoremap <silent><buffer><expr> dD defx#do_action('remove')
         nnoremap <silent><buffer><expr> dd defx#do_action('move')
         nnoremap <silent><buffer><expr> rn defx#do_action('rename')
         nnoremap <silent><buffer><expr> X  defx#do_action('execute_system')
